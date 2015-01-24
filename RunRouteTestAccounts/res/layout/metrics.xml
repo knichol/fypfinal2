@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/widget65"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="60dp"
+        android:layout_y="57dp"
+        android:text="Weight" />
+
+    <TextView
+        android:id="@+id/widget67"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="62dp"
+        android:layout_y="101dp"
+        android:text="Height" />
+
+    <TextView
+        android:id="@+id/widget69"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="56dp"
+        android:layout_y="144dp"
+        android:text="Glucose" />
+
+    <TextView
+        android:id="@+id/widget71"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_x="60dp"
+        android:layout_y="178dp"
+        android:text="HbA1c" />
+
+    <TextView
+        android:id="@+id/widget81"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="33dp"
+        android:layout_y="217dp"
+        android:text="BP (sys/dia)" />
+
+    <EditText
+        android:id="@+id/editWeight"
+        android:layout_width="107dp"
+        android:layout_height="40dp"
+        android:layout_x="121dp"
+        android:layout_y="48dp"
+        android:ems="10"
+        android:hint="in kilograms..."
+        android:inputType="number"
+        android:textSize="14dp" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editHeigth"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_x="121dp"
+        android:layout_y="94dp"
+        android:ems="10"
+        android:hint="in metres..."
+        android:inputType="number"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/editA1c"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_x="122dp"
+        android:layout_y="173dp"
+        android:ems="10"
+        android:hint="in mmol/mol..."
+        android:inputType="number"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/editBPsys"
+        android:layout_width="53dp"
+        android:layout_height="40dp"
+        android:layout_x="124dp"
+        android:layout_y="212dp"
+        android:ems="10"
+        android:hint="sys"
+        android:inputType="number"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/editBPdia"
+        android:layout_width="51dp"
+        android:layout_height="40dp"
+        android:layout_x="180dp"
+        android:layout_y="212dp"
+        android:ems="10"
+        android:hint="dia"
+        android:inputType="number"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="240dp"
+        android:layout_y="143dp"
+        android:text="(mg/dL)" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="240dp"
+        android:layout_y="178dp"
+        android:text="(mmol/mol)" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="240dp"
+        android:layout_y="58dp"
+        android:text="(kg)" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="241dp"
+        android:layout_y="104dp"
+        android:text="(metres)" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="242dp"
+        android:layout_y="223dp"
+        android:text="(mm Hg)" />
+
+    <EditText
+        android:id="@+id/editGlucose"
+        android:layout_width="106dp"
+        android:layout_height="40dp"
+        android:layout_x="122dp"
+        android:layout_y="134dp"
+        android:ems="10"
+        android:hint="in mg/dL..."
+        android:inputType="number"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/widget64"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="105dp"
+        android:layout_y="12dp"
+        android:text="User Metrics"
+        android:textColor="#21dbd4"
+        android:textSize="24dp" 
+        android:textStyle="bold"/>
+   
+     <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="177dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dip"
+        android:layout_x="88dp"
+        android:layout_y="280dp"
+        android:background="@null"
+        android:text="Update Info"
+        android:textColor="#21dbd4"
+        android:textSize="20dip"
+        android:textStyle="bold" />
+    
+    <Button
+        android:id="@+id/btnView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dip"
+        android:layout_x="8dp"
+        android:layout_y="337dp"
+        android:background="@null"
+        android:text="View Last Entry"
+        android:textColor="#21dbd4"
+        android:textSize="20dip"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnViewAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dip"
+        android:layout_x="213dp"
+        android:layout_y="340dp"
+        android:background="@null"
+        android:text="View All Entries"
+        android:textColor="#21dbd4"
+        android:textSize="20dip"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/returnToDashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dip"
+        android:layout_x="113dp"
+        android:layout_y="415dp"
+        android:background="@null"
+        android:text="Back to Home"
+        android:textColor="#21dbd4"
+        android:textSize="20dip"
+        android:textStyle="bold" />
+
+   
+
+ </AbsoluteLayout>
