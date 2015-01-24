@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.androidgpsexample.MainActivity$PlaceholderFragment" >
+
+    <TextView
+        android:id="@+id/distTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:text="TextView"
+        android:textSize="40dp" />
+    
+    <Button
+        android:id="@+id/clickToRun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/clickToPush"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/clickToPush"
+        android:layout_marginBottom="54dp"
+        android:text="Restart" />
+
+    <Button
+        android:id="@+id/clickToPush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/clickToRun"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:text="Push Data" />
+
+</RelativeLayout>
