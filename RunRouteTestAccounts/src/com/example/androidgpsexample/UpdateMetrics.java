@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -12,6 +14,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,6 +25,8 @@ public class UpdateMetrics extends Activity implements OnClickListener
 	EditText editWeight, editHeigth, editGlucose, editA1c, editBPsys, editBPdia;
 	Button btnAdd,btnDelete,btnModify,btnView,btnViewAll,btnShowInfo,btnDashboard;
 	SQLiteDatabase db;
+	UserFunctions userFunction = new UserFunctions();
+	
 
 	/** Called when the activity is first created. */
 	@Override
@@ -29,6 +34,13 @@ public class UpdateMetrics extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.metrics);
 
+		// Enable permissions to post to db
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+		
 		editWeight = (EditText)findViewById(R.id.editWeight);
 		editHeigth = (EditText)findViewById(R.id.editHeigth);
 		editGlucose = (EditText)findViewById(R.id.editGlucose);
@@ -47,9 +59,10 @@ public class UpdateMetrics extends Activity implements OnClickListener
 
 		db = openOrCreateDatabase("MetricsDB", Context.MODE_PRIVATE, null);
 		db.execSQL("CREATE TABLE IF NOT EXISTS user_metrics ("
-				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 			
+				+ "user_id TEXT,"
 				+ "weight TEXT,"
-				+ "heigth TEXT,"
+				+ "height TEXT,"
 				+ "glucose TEXT,"
 				+ "hba1c TEXT,"
 				+ "BPsys TEXT,"
@@ -59,18 +72,18 @@ public class UpdateMetrics extends Activity implements OnClickListener
 
 	@Override
 	public void onClick(View view) {
-		if(view==btnAdd) {
-			Cursor c = db.rawQuery("SELECT * FROM user_metrics", null);
+		if(view == btnAdd) {
+			Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = '"+userFunction.getUID(getApplicationContext())+"'", null);
 			ArrayList<String> list = new ArrayList<String>();
 			boolean errorCall = false;
 
 			if(c.moveToLast()){
-				list.add(c.getString(1));
 				list.add(c.getString(2));
 				list.add(c.getString(3));
 				list.add(c.getString(4));
 				list.add(c.getString(5));
 				list.add(c.getString(6));
+				list.add(c.getString(7));
 			}
 
 			if(editWeight.getText().toString().trim().length()==0){
@@ -104,13 +117,23 @@ public class UpdateMetrics extends Activity implements OnClickListener
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			Date date = new Date();
 			//System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
-			db.execSQL("INSERT INTO user_metrics (weight, heigth, glucose, hba1c, BPsys, BPdia, created_on) " +
-					"VALUES('"+editWeight.getText()+"','"+editHeigth.getText()+
+			UserFunctions userFunction = new UserFunctions();
+			
+			userFunction.postMetrics(userFunction.getUID(getApplicationContext()), 
+					editWeight.getText().toString(), editHeigth.getText().toString(), 
+					editGlucose.getText().toString(), editA1c.getText().toString(), 
+					editBPsys.getText().toString(), editBPdia.getText().toString());
+			
+			
+			db.execSQL("INSERT INTO user_metrics (user_id, weight, height, glucose, hba1c, BPsys, BPdia, created_on) " +
+					"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+editWeight.getText()+"','"+editHeigth.getText()+
 					"','"+editGlucose.getText()+"','"+editA1c.getText()+"','"+editBPsys.getText()+
 					"','"+editBPdia.getText()+"','"+dateFormat.format(date).toString()+"');");
 
 			showMessage("Success", "Record added");
 			clearText();
+			
+				
 		}
 
 		// Delete command
@@ -150,19 +173,19 @@ public class UpdateMetrics extends Activity implements OnClickListener
 
 		// View most recent entry
 		if(view == btnView) {
-			Cursor c=db.rawQuery("SELECT * FROM user_metrics", null);
+			Cursor c=db.rawQuery("SELECT * FROM user_metrics WHERE user_id = '"+userFunction.getUID(getApplicationContext())+"'", null);
 			if(c.getCount()==0) {
 				showMessage("Error", "No records found");
 				return;
 			}
 			StringBuffer buffer = new StringBuffer();
 			if(c.moveToLast()) {				
-				buffer.append("Updated on: "+c.getString(7)+"\n");
-				buffer.append("Weight: "+c.getString(1)+"\n");
-				buffer.append("Height: "+c.getString(2)+"\n");
-				buffer.append("Glucose: "+c.getString(3)+"\n");
-				buffer.append("HbA1c: "+c.getString(4)+"\n");
-				buffer.append("BP(sys/dia): "+c.getString(5)+"/"+c.getString(6)+"\n\n");				
+				buffer.append("Updated on: "+c.getString(8)+"\n");
+				buffer.append("Weight: "+c.getString(2)+"\n");
+				buffer.append("Height: "+c.getString(3)+"\n");
+				buffer.append("Glucose: "+c.getString(4)+"\n");
+				buffer.append("HbA1c: "+c.getString(5)+"\n");
+				buffer.append("BP(sys/dia): "+c.getString(6)+"/"+c.getString(7)+"\n\n");				
 			}
 			showMessage("Last Entry", buffer.toString());
 
@@ -170,19 +193,19 @@ public class UpdateMetrics extends Activity implements OnClickListener
 
 		// View all
 		if(view == btnViewAll) {
-			Cursor c=db.rawQuery("SELECT * FROM user_metrics", null);
+			Cursor c=db.rawQuery("SELECT * FROM user_metrics WHERE user_id = '"+userFunction.getUID(getApplicationContext())+"'", null);
 			if(c.getCount()==0) {
 				showMessage("Error", "No records found");
 				return;
 			}
 			StringBuffer buffer = new StringBuffer();
 			while(c.moveToNext()) {
-				buffer.append("Updated on: "+c.getString(7)+"\n");
-				buffer.append("Weight: "+c.getString(1)+"\n");
-				buffer.append("Height: "+c.getString(2)+"\n");
-				buffer.append("Glucose: "+c.getString(3)+"\n");
-				buffer.append("HbA1c: "+c.getString(4)+"\n");
-				buffer.append("BP(sys/dia): "+c.getString(5)+"/"+c.getString(6)+"\n\n");				
+				buffer.append("Updated on: "+c.getString(8)+"\n");
+				buffer.append("Weight: "+c.getString(2)+"\n");
+				buffer.append("Height: "+c.getString(3)+"\n");
+				buffer.append("Glucose: "+c.getString(4)+"\n");
+				buffer.append("HbA1c: "+c.getString(5)+"\n");
+				buffer.append("BP(sys/dia): "+c.getString(6)+"/"+c.getString(7)+"\n\n");				
 			}
 			showMessage("All Entries", buffer.toString());
 		}

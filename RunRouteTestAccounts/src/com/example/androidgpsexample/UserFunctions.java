@@ -26,6 +26,9 @@ public class UserFunctions {
 	private static String register_tag = "register";
 	private static String postnew_tag = "postnew";
 	
+	private static String postmetrics_tag = "postmet";
+	
+	
 	
 	// constructor
 	public UserFunctions(){
@@ -77,6 +80,25 @@ public class UserFunctions {
 		params.add(new BasicNameValuePair("distance", distance));
 		params.add(new BasicNameValuePair("time", time));
 		params.add(new BasicNameValuePair("steps", steps));
+		
+		// getting JSON Object
+		JSONObject json = jsonParser.getJSONFromUrl(postURL, params);
+		// return json
+		return json;
+	}
+	
+	public JSONObject postMetrics(String id, String weight, String height, String glucose, String a1c,
+			String BPsys, String BPdia){
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", postmetrics_tag));
+		params.add(new BasicNameValuePair("id", id));
+		params.add(new BasicNameValuePair("weight", weight));
+		params.add(new BasicNameValuePair("height", height));
+		params.add(new BasicNameValuePair("glucose", glucose));
+		params.add(new BasicNameValuePair("a1c", a1c));
+		params.add(new BasicNameValuePair("BPsys", BPsys));
+		params.add(new BasicNameValuePair("BPdia", BPdia));
 		
 		// getting JSON Object
 		JSONObject json = jsonParser.getJSONFromUrl(postURL, params);

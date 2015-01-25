@@ -1,5 +1,9 @@
 package com.example.androidgpsexample;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,6 +14,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,10 +101,15 @@ public class FinishScreen extends Activity {
 				UserFunctions userFunction = new UserFunctions();
 				// Get the users email to user as a key - emails are unique
 				String id = userFunction.getUID(getApplicationContext());
-				
+				//String type = "PLACEHOLDER";
 				// 
 				JSONObject json = userFunction.postNew(id, distancePush, timePush, stepsPush);
-
+				DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+				
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				Date date = new Date();
+				
+				db.addData(id, distancePush, timePush, stepsPush, dateFormat.format(date).toString());
 				// check for login response
 				try {
 					if (json.getString(KEY_SUCCESS) != null) {
@@ -109,9 +119,9 @@ public class FinishScreen extends Activity {
 
 							// user successfully registred
 							// Store user details in SQLite Database
-							DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+							db = new DatabaseHandler(getApplicationContext());
 							JSONObject json_user = json.getJSONObject("user");
-
+							KEY_CREATED_AT = dateFormat.format(date).toString();
 							db.addData(json_user.getString(KEY_ID), json_user.getString(KEY_DISTANCE), 
 									json.getString(KEY_TIME), json.getString(KEY_STEPS), 
 									json_user.getString(KEY_CREATED_AT));						
@@ -119,6 +129,7 @@ public class FinishScreen extends Activity {
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
+					Log.w("JSON Failure", e);
 				}
 			}
 		});

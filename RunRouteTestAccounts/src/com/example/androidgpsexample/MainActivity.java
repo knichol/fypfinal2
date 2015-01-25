@@ -356,7 +356,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 		mBuilder.setContentText("You've moved: "+formatter.format(timerDist)+"m in the last while...");
 		mBuilder.setTicker("You haven't moved much lately!");
 		mBuilder.setSmallIcon(R.drawable.hlt);
-		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hltbmp);
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hltlarge);
 		mBuilder.setLargeIcon(bm);
 		mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
 		// FIGURE THESE OUT

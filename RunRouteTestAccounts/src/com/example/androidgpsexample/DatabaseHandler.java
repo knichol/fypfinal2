@@ -5,6 +5,9 @@
  * */
 package com.example.androidgpsexample;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import android.content.ContentValues;
@@ -57,12 +60,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.execSQL(CREATE_LOGIN_TABLE);
 
 		String CREATE_DATA_TABLE = "CREATE TABLE " + TABLE_DATA + "("
-				+ KEY_ID + " INTEGER PRIMARY KEY," 
-				+ KEY_UID + " TEXT," 
-				+ KEY_DISTANCE + " TEXT,"
-				+ KEY_TIME + " TEXT,"
-				+ KEY_STEPS + " TEXT," 
-				+ KEY_CREATED_AT + " TEXT" + ")";
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 
+				+ "user_id TEXT," 
+				+ "distance TEXT,"
+				+ "time TEXT,"
+				+ "steps TEXT," 
+				+ "type TEXT" 
+				+ "created_at TEXT" + ")";
 		db.execSQL(CREATE_DATA_TABLE);
 
 	}
@@ -72,7 +76,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_DATA);
+		//db.execSQL("DROP TABLE IF EXISTS " + TABLE_DATA);
 		// Create tables again
 		onCreate(db);
 	}
@@ -109,6 +113,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close(); // Closing database connection
 	}
 
+	// Possible function to use in the future... not really sure what i started for...
+//	public void add(String id, String distance, String time, String steps, String created_at) {
+//		SQLiteDatabase db = this.getWritableDatabase();
+//		
+//		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//		Date date = new Date();
+//		//System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
+//		UserFunctions userFunction = new UserFunctions();
+//		db.execSQL("INSERT INTO data (user_id, weight, height, glucose, hba1c, BPsys, BPdia, created_on) " +
+//				"VALUES('"+userFunction.getUID(getApplicationContext())
+//				+"','"+editWeight.getText()
+//				+"','"+editHeigth.getText()
+//				+"','"+editGlucose.getText()
+//				+"','"+editA1c.getText()
+//				+"','"+editBPsys.getText()
+//				+"','"+editBPdia.getText()
+//				+"','"+dateFormat.format(date).toString()+"');");
+//
+//	
+//	}
+	
 	/**
 	 * Getting user data from database
 	 * */
