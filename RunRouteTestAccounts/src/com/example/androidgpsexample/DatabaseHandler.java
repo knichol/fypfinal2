@@ -171,6 +171,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 		return userID;
 	}
+	
+	public String getName(){
+		String selectQuery = "SELECT  * FROM " + TABLE_LOGIN;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		String userID = null; 
+		// Move to first row
+		cursor.moveToFirst();
+		if(cursor.getCount() > 0){
+			userID = cursor.getString(1);
+		}
+		cursor.close();
+		db.close();
+		return userID;
+	}
 
 
 	/**

@@ -130,6 +130,17 @@ public class UserFunctions {
 		return id;
 	}
 	
+	// get user name
+	public String getName(Context context){
+		DatabaseHandler db = new DatabaseHandler(context);
+		int count = db.getRowCount();
+		String id = null;
+		if(count > 0){
+			id = db.getName();
+		}
+		return id;
+	}
+	
 	/**
 	 * Function to logout user
 	 * Reset Database
