@@ -5,9 +5,6 @@
  * */
 package com.example.androidgpsexample;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 
 import android.content.ContentValues;

@@ -97,6 +97,7 @@ public class FinishScreen extends Activity {
     	// Push to database
     	Button btnPush = (Button) findViewById(R.id.clickToPush);
     	btnPush.setOnClickListener(new View.OnClickListener() {			
+			@Override
 			public void onClick(View view) {
 				UserFunctions userFunction = new UserFunctions();
 				// Get the users email to user as a key - emails are unique

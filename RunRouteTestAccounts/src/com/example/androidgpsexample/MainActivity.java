@@ -438,5 +438,4 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 	@Override
 	public void onDisconnected() {
 	}
-
 }
