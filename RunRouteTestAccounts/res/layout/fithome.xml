@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/exercise"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/exercise"
+        android:paddingTop="180dp"
+        android:text="Exercise"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/goals"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignLeft="@+id/exercise"
+        android:layout_below="@+id/exercise"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/objective"
+        android:paddingTop="180dp"
+        android:text="Goals"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

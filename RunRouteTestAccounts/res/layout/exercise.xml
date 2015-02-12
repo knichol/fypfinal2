@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/exerTimed"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_alignLeft="@+id/exerDist"
+        android:layout_below="@+id/exerDist"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/clock"
+        android:paddingTop="100dp"
+        android:text="Timed"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/exerGraph"
+        android:layout_width="180dp"
+        android:layout_height="220dp"
+        android:layout_alignLeft="@+id/exerFree"
+        android:layout_alignRight="@+id/exerTimed"
+        android:layout_below="@+id/exerTimed"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/graph"
+        android:paddingTop="150dp"
+        android:text="Graphs"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/exerDist"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/distance"
+        android:paddingTop="100dp"
+        android:text="Distance"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/exerFree"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_above="@+id/exerGraph"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/map2"
+        android:paddingTop="140dp"
+        android:text="Free"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/exerFree"
+        android:layout_alignLeft="@+id/exerFree"
+        android:layout_alignRight="@+id/exerFree"
+        android:layout_alignTop="@+id/exerDist"
+        android:layout_marginBottom="15dp"
+        android:background="#FF0000"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Please Choose an Activity"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
