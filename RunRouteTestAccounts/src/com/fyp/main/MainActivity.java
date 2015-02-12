@@ -1,11 +1,12 @@
-package com.example.androidgpsexample;
+package com.fyp.main;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.androidgpsexample.FileUtility;
+import com.example.androidgpsexample.R;
+import com.fyp.library.FileUtility;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.maps.CameraUpdate;

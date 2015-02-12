@@ -3,7 +3,7 @@
  * URL: www.androidhive.info
  * twitter: http://twitter.com/ravitamada
  * */
-package com.example.androidgpsexample;
+package com.fyp.library;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,7 +1,11 @@
-package com.example.androidgpsexample;
+package com.fyp.main;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.example.androidgpsexample.R;
+import com.fyp.library.DatabaseHandler;
+import com.fyp.library.UserFunctions;
 
 
 import android.app.Activity;
@@ -9,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,6 +37,9 @@ public class RegisterActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		//Remove title bar
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
 
@@ -54,9 +62,15 @@ public class RegisterActivity extends Activity {
 				String name = inputFullName.getText().toString();
 				String email = inputEmail.getText().toString();
 				String password = inputPassword.getText().toString();
+				
+				if (name.isEmpty() || email.isEmpty() || password.isEmpty()){
+					registerErrorMsg.setText("Error occured in registration");
+				}
+					
+				else {
 				UserFunctions userFunction = new UserFunctions();
 				JSONObject json = userFunction.registerUser(name, email, password);
-
+				
 				// check for login response
 				try {
 					if (json.getString(KEY_SUCCESS) != null) {
@@ -86,6 +100,7 @@ public class RegisterActivity extends Activity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
+				}	
 			}
 		});
 

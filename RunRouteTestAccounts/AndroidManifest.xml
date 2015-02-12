@@ -26,7 +26,8 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/hlt"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyA0tzhySkcDLSTcHPrC5hL4fthzOey7KK0" />
@@ -34,25 +35,9 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <!-- Opening Animation Activity -->
         <activity
-            android:name="com.example.androidgpsexample.MainActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.example.androidgpsexample.StartScreen"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.example.androidgpsexample.FinishScreen"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.example.androidgpsexample.UpdateMetrics"
-            android:label="@string/app_name" >
-        </activity>
-        
-        <activity
-            android:name="com.example.androidgpsexample.DashboardActivity"
+            android:name="com.fyp.main.OpenAnim"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,16 +48,79 @@
 
         <!-- Login Activity -->
         <activity
-            android:name="com.example.androidgpsexample.LoginActivity"
-            android:label="Login Account" >
+            android:name="com.fyp.main.LoginActivity"
+            android:label="@string/app_name" >
         </activity>
 
         <!-- Register Activity -->
         <activity
-            android:name="com.example.androidgpsexample.RegisterActivity"
-            android:label="Register New Account" >
+            android:name="com.fyp.main.RegisterActivity"
+            android:label="@string/app_name" >
         </activity>
-    
+        <activity
+            android:name="com.fyp.main.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+       
+        <activity
+            android:name="com.fyp.main.FinishScreen"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.fyp.diabetes.UpdateMetrics"
+            android:label="@string/app_name" >
+        </activity>
+
+        <!-- Main Dashboard Activity -->
+        <activity
+            android:name="com.fyp.main.DashboardActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+        <!-- DIABETES: Dashboard -->
+        <activity
+            android:name="com.fyp.diabetes.diadash"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.main.DashBoardActivity" />
+        </activity>
+
+        <!-- DIABETES: User Profile -->
+        <activity
+            android:name="com.fyp.diabetes.prof"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.diabetes.diadash" />
+        </activity>
+
+        <!-- DIABETES: Set User Metrics -->
+        <activity
+            android:name="com.fyp.diabetes.setmet"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.diabetes.diadash" />
+        </activity>
+
+        <!-- FITNESS: Main Dashboard -->
+        <activity
+            android:name="com.fyp.fitness.fitdash"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.main.DashboardActivity" />
+        </activity>
+        
+        <!-- FITNESS: Exercise Dashboard -->
+        <activity
+            android:name="com.fyp.fitness.exercise"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.fitness.fitdash" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,7 +1,11 @@
-package com.example.androidgpsexample;
+package com.fyp.main;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.example.androidgpsexample.R;
+import com.fyp.library.DatabaseHandler;
+import com.fyp.library.UserFunctions;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +13,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,6 +37,9 @@ public class LoginActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		//Remove title bar
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 

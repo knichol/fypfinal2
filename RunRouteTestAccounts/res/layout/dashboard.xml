@@ -1,50 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3b3b3b"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/welcomeMsg"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:gravity="center"
-        android:text="WELCOME"
-        android:textSize="40dip" />
+    <Button
+        android:id="@+id/fitnessDash"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_below="@+id/diabetesDash"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/walk"
+        android:paddingTop="150dp"
+        android:text="Fitness Home"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/diabetesDash"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_below="@+id/welcomeMsg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/blood"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:paddingTop="150dp"
+        android:text="Diabetes Home"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dip"
-        android:background="@null"
-        android:text="Logout Me"
-        android:textColor="#21dbd4"
-        android:textSize="20dip"
+        android:layout_alignLeft="@+id/fitnessDash"
+        android:layout_alignRight="@+id/fitnessDash"
+        android:layout_below="@+id/fitnessDash"
+        android:layout_marginTop="10dp"
+        android:background="#FF0000"
+        android:padding="12dp"
+        android:text="Logout"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/clickToRunAgain"
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/welcomeMsg"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dip"
-        android:background="@null"
-        android:text="Click To Go For a Run"
-        android:textColor="#21dbd4"
-        android:textSize="20dip"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="WELCOME"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF0000"
+        android:textSize="35sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/clickToUpdate"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dip"
-        android:background="@null"
-        android:text="Update Info"
-        android:textColor="#21dbd4"
-        android:textSize="20dip"
-        android:textStyle="bold" />
-
-</LinearLayout>
+</RelativeLayout>

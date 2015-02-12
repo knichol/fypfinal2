@@ -1,4 +1,4 @@
-package com.example.androidgpsexample;
+package com.fyp.library;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

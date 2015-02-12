@@ -1,9 +1,13 @@
-package com.example.androidgpsexample;
+package com.fyp.diabetes;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.example.androidgpsexample.R;
+import com.fyp.library.UserFunctions;
+import com.fyp.main.DashboardActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog.Builder;

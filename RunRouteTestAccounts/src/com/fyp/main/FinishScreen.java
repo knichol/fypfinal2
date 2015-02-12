@@ -1,4 +1,4 @@
-package com.example.androidgpsexample;
+package com.fyp.main;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -7,8 +7,9 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.androidgpsexample.DatabaseHandler;
-import com.example.androidgpsexample.UserFunctions;
+import com.example.androidgpsexample.R;
+import com.fyp.library.DatabaseHandler;
+import com.fyp.library.UserFunctions;
 
 import android.app.Activity;
 import android.content.Intent;
