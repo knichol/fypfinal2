@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#F7EAC8"
     android:gravity="top" >
 
     <Button
@@ -18,7 +18,7 @@
         android:height="0dp"
         android:paddingTop="140dp"
         android:text="Graphs"
-        android:textColor="#FFFFFF"
+        android:textColor="#F7EAC8"
         android:textSize="40sp"
         android:textStyle="bold" />
 
@@ -32,7 +32,7 @@
         android:height="50dp"
         android:paddingTop="100dp"
         android:text="Reminders"
-        android:textColor="#FFFFFF"
+        android:textColor="#F7EAC8"
         android:textSize="26sp"
         android:textStyle="bold" />
 
@@ -47,7 +47,7 @@
         android:height="50dp"
         android:paddingTop="100dp"
         android:text="History"
-        android:textColor="#FFFFFF"
+        android:textColor="#F7EAC8"
         android:textSize="26sp"
         android:textStyle="bold" />
 
@@ -63,7 +63,7 @@
         android:height="50dp"
         android:paddingTop="100dp"
         android:text="Profile"
-        android:textColor="#FFFFFF"
+        android:textColor="#F7EAC8"
         android:textSize="26sp"
         android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
         android:height="50dp"
         android:paddingTop="100dp"
         android:text="Update Info"
-        android:textColor="#FFFFFF"
+        android:textColor="#F7EAC8"
         android:textSize="26sp"
         android:textStyle="bold" />
 

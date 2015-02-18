@@ -111,26 +111,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	// Possible function to use in the future... not really sure what i started for...
-//	public void add(String id, String distance, String time, String steps, String created_at) {
-//		SQLiteDatabase db = this.getWritableDatabase();
-//		
-//		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//		Date date = new Date();
-//		//System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
-//		UserFunctions userFunction = new UserFunctions();
-//		db.execSQL("INSERT INTO data (user_id, weight, height, glucose, hba1c, BPsys, BPdia, created_on) " +
-//				"VALUES('"+userFunction.getUID(getApplicationContext())
-//				+"','"+editWeight.getText()
-//				+"','"+editHeigth.getText()
-//				+"','"+editGlucose.getText()
-//				+"','"+editA1c.getText()
-//				+"','"+editBPsys.getText()
-//				+"','"+editBPdia.getText()
-//				+"','"+dateFormat.format(date).toString()+"');");
-//
-//	
-//	}
-	
+	//	public void add(String id, String distance, String time, String steps, String created_at) {
+	//		SQLiteDatabase db = this.getWritableDatabase();
+	//		
+	//		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	//		Date date = new Date();
+	//		//System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
+	//		UserFunctions userFunction = new UserFunctions();
+	//		db.execSQL("INSERT INTO data (user_id, weight, height, glucose, hba1c, BPsys, BPdia, created_on) " +
+	//				"VALUES('"+userFunction.getUID(getApplicationContext())
+	//				+"','"+editWeight.getText()
+	//				+"','"+editHeigth.getText()
+	//				+"','"+editGlucose.getText()
+	//				+"','"+editA1c.getText()
+	//				+"','"+editBPsys.getText()
+	//				+"','"+editBPdia.getText()
+	//				+"','"+dateFormat.format(date).toString()+"');");
+	//
+	//	
+	//	}
+
 	/**
 	 * Getting user data from database
 	 * */
@@ -168,7 +168,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 		return userID;
 	}
-	
+
 	public String getName(){
 		String selectQuery = "SELECT  * FROM " + TABLE_LOGIN;
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -183,7 +183,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 		return userID;
 	}
-
 
 	/**
 	 * Getting user login status

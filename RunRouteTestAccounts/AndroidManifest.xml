@@ -61,7 +61,6 @@
             android:name="com.fyp.main.MainActivity"
             android:label="@string/app_name" >
         </activity>
-       
         <activity
             android:name="com.fyp.main.FinishScreen"
             android:label="@string/app_name" >
@@ -112,7 +111,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.main.DashboardActivity" />
         </activity>
-        
+
         <!-- FITNESS: Exercise Dashboard -->
         <activity
             android:name="com.fyp.fitness.exercise"
@@ -120,6 +119,18 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.fitness.fitdash" />
+        </activity>
+
+        <!-- FITNESS: Distance Exercise -->
+        <activity
+            android:name="com.fyp.fitness.exdist"
+            android:label="@string/app_name" >
+        </activity>
+        
+                <!-- FITNESS: Timed Exercise -->
+        <activity
+            android:name="com.fyp.fitness.extimed"
+            android:label="@string/app_name" >
         </activity>
     </application>
 

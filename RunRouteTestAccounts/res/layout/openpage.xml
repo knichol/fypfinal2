@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="#FFFFFF">
+    android:background="#F7EAC8">
 
     <ImageView
         android:id="@+id/imageAnim"
@@ -12,6 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="38dp"
+        android:clickable="true"
         android:src="@drawable/hlt" />
 
     <TextView
@@ -21,9 +22,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
+        android:clickable="true"
         android:text="WELCOME"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FF0000"
+        android:textColor="#DB3340"
         android:textSize="60sp"
         android:textStyle="bold" />
 

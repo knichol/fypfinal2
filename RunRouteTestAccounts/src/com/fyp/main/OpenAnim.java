@@ -1,22 +1,21 @@
 package com.fyp.main;
 
 import com.example.androidgpsexample.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class OpenAnim extends Activity {
 
-	Button btnReg;
+	boolean skipped = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +32,7 @@ public class OpenAnim extends Activity {
 
 		ImageView image1 = (ImageView)findViewById(R.id.imageAnim);
 		TextView text1 = (TextView)findViewById(R.id.WelcCurr);
+
 
 		// Animations
 		Animation anim1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.animation_zoom_out);
@@ -58,6 +58,21 @@ public class OpenAnim extends Activity {
 
 			@Override
 			public void onFinish() {
+				if (skipped == false){
+					// Starting main dashboard
+					Intent start = new Intent(getApplicationContext(), DashboardActivity.class);
+					start.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(start);
+					// Closing animation screen
+					finish();
+				}
+			}
+		}.start();
+
+		text1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				skipped = true;
 				// Starting main dashboard
 				Intent start = new Intent(getApplicationContext(), DashboardActivity.class);
 				start.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -65,7 +80,21 @@ public class OpenAnim extends Activity {
 				// Closing animation screen
 				finish();
 			}
-		}.start();
+		});		
+
+		image1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				skipped = true;
+				// Starting main dashboard
+				Intent start = new Intent(getApplicationContext(), DashboardActivity.class);
+				start.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(start);
+				// Closing animation screen
+				finish();
+			}
+		});
+
 
 	}
 }

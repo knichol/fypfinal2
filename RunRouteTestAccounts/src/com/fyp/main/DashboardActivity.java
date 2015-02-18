@@ -18,12 +18,12 @@ public class DashboardActivity extends Activity {
 	UserFunctions userFunctions;
 	Button btnLogout, btnDia, btnFit;
 	TextView welcome;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+
 		super.onCreate(savedInstanceState);
 
 		/**
@@ -33,15 +33,15 @@ public class DashboardActivity extends Activity {
 		userFunctions = new UserFunctions();
 		if (userFunctions.isUserLoggedIn(getApplicationContext())){
 			setContentView(R.layout.dashboard);
-			
+
 			// Gets users name from DB and trims to just show first name
 			String s =  userFunctions.getName(getApplicationContext()).toUpperCase();
 			String ns = s.replaceAll(" .*", "");
-			
+
 			// Sets textview to show welcome message plus users name
 			welcome = (TextView)findViewById(R.id.welcomeMsg);
 			welcome.setText("WELCOME " + ns);
-			
+
 			btnLogout = (Button) findViewById(R.id.btnLogout);
 			btnDia = (Button) findViewById(R.id.diabetesDash);
 			btnFit = (Button) findViewById(R.id.fitnessDash);

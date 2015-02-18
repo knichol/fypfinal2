@@ -39,14 +39,14 @@ public class LoginActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
 		StrictMode.setThreadPolicy(policy);
-		
+
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.loginEmail);
 		inputPassword = (EditText) findViewById(R.id.loginPassword);
@@ -75,18 +75,19 @@ public class LoginActivity extends Activity {
 							// Store user details in SQLite Database
 							DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 							JSONObject json_user = json.getJSONObject("user");
-							
+
 							// Clear all previous data in database
 							userFunction.logoutUser(getApplicationContext());
-							db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));						
-							
+							db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), 
+									json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));						
+
 							// Launch Dashboard Screen
 							Intent dashboard = new Intent(getApplicationContext(), DashboardActivity.class);
-							
+
 							// Close all views before launching Dashboard
 							dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 							startActivity(dashboard);
-							
+
 							// Close Login Screen
 							finish();
 						}else{

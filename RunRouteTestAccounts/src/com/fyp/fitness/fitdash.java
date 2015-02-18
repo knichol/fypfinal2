@@ -1,8 +1,6 @@
 package com.fyp.fitness;
 
 import com.example.androidgpsexample.R;
-import com.fyp.diabetes.prof;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

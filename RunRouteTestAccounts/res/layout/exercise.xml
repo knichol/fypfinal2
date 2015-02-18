@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F7EAC8"
     android:orientation="vertical" >
 
     <Button
@@ -14,7 +15,7 @@
         android:background="@drawable/clock"
         android:paddingTop="100dp"
         android:text="Timed"
-        android:textColor="#FFFFFF"
+        android:textColor="#F7EAC8"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -26,10 +27,10 @@
         android:layout_alignRight="@+id/exerTimed"
         android:layout_below="@+id/exerTimed"
         android:layout_marginTop="15dp"
-        android:background="@drawable/graph"
+        android:background="@drawable/graphf"
         android:paddingTop="150dp"
         android:text="Graphs"
-        android:textColor="#FFFFFF"
+        android:textColor="#F7EAC8"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -44,7 +45,7 @@
         android:background="@drawable/distance"
         android:paddingTop="100dp"
         android:text="Distance"
-        android:textColor="#FFFFFF"
+        android:textColor="#F7EAC8"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -58,7 +59,7 @@
         android:background="@drawable/map2"
         android:paddingTop="140dp"
         android:text="Free"
-        android:textColor="#FFFFFF"
+        android:textColor="#F7EAC8"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -71,11 +72,11 @@
         android:layout_alignRight="@+id/exerFree"
         android:layout_alignTop="@+id/exerDist"
         android:layout_marginBottom="15dp"
-        android:background="#FF0000"
+        android:background="#1FDA9A"
         android:gravity="center_vertical|center_horizontal"
         android:text="Please Choose an Activity"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FFFFFF"
+        android:textColor="#F7EAC8"
         android:textSize="22sp"
         android:textStyle="bold" />
 

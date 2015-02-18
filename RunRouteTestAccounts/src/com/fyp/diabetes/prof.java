@@ -26,9 +26,7 @@ public class prof extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.curr_metrics);
 
 		// Gets users name from DB and trims to just show first name
@@ -65,15 +63,16 @@ public class prof extends Activity {
 				+ "created_on TEXT)");
 
 		// Checking currently logged in users metrics
-		Cursor c=db.rawQuery("SELECT * FROM user_metrics WHERE user_id = '"+userFunction.getUID(getApplicationContext())+"'", null);
+		Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = " +
+				"'"+userFunction.getUID(getApplicationContext())+"'", null);
 		if(c.getCount()==0) {
 			showMessage("Error", "No records found");
 			return;
 		}
 
 		if(c.moveToLast()) {				
-			height.setText(c.getString(2).toString());
-			weight.setText(c.getString(3).toString());
+			height.setText(c.getString(3).toString());
+			weight.setText(c.getString(2).toString());
 			glucose.setText(c.getString(4).toString());
 			A1c.setText(c.getString(5).toString());
 			BPsys.setText(c.getString(6).toString());
@@ -88,6 +87,7 @@ public class prof extends Activity {
 				Intent dia = new Intent(getApplicationContext(), setmet.class);
 				dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(dia);
+				finish();
 			}
 		});
 
@@ -95,14 +95,13 @@ public class prof extends Activity {
 		btnBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				Intent dia = new Intent(getApplicationContext(), diadash.class);
+				dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(dia);
 				finish();
 			}
 		});
 
-	}
-
-	public void finish() {
-		super.finish();
 	}
 
 	// Display message
@@ -112,11 +111,6 @@ public class prof extends Activity {
 		builder.setTitle(title);
 		builder.setMessage(message);
 		builder.show();
-	}
-
-	@Override
-	public void onBackPressed() {
-		super.finish();
 	}
 
 }

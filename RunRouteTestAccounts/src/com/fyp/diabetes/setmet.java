@@ -29,13 +29,12 @@ public class setmet extends Activity {
 	SQLiteDatabase db;
 	UserFunctions userFunction = new UserFunctions();
 
-
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+		
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.upd_metrics);
@@ -56,14 +55,7 @@ public class setmet extends Activity {
 
 		btnAdd = (Button)findViewById(R.id.btnUpdMetUpd);
 		btnCancel = (Button)findViewById(R.id.btnUpdMetCancel);
-		//		btnView = (Button)findViewById(R.id.btnView);
-		//		btnViewAll = (Button)findViewById(R.id.btnViewAll);
-		//		btnDashboard = (Button)findViewById(R.id.returnToDashboard);
-		//			btnAdd.setOnClickListener((OnClickListener) this);
-		//		btnView.setOnClickListener(this);
-		//		btnViewAll.setOnClickListener(this);
-		//		btnDashboard.setOnClickListener(this);
-
+		
 		db = openOrCreateDatabase("MetricsDB", Context.MODE_PRIVATE, null);
 		db.execSQL("CREATE TABLE IF NOT EXISTS user_metrics ("
 				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 			
@@ -76,13 +68,12 @@ public class setmet extends Activity {
 				+ "BPdia TEXT,"
 				+ "created_on TEXT)");
 
-
-
 		btnAdd.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if(view == btnAdd) {
-					Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = '"+userFunction.getUID(getApplicationContext())+"'", null);
+					Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = " +
+							"'"+userFunction.getUID(getApplicationContext())+"'", null);
 					ArrayList<String> list = new ArrayList<String>();
 					boolean errorCall = false;
 
@@ -125,14 +116,13 @@ public class setmet extends Activity {
 
 					DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 					Date date = new Date();
-					//System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
+
 					UserFunctions userFunction = new UserFunctions();
 
 					userFunction.postMetrics(userFunction.getUID(getApplicationContext()), 
 							editWeight.getText().toString(), editHeigth.getText().toString(), 
 							editGlucose.getText().toString(), editA1c.getText().toString(), 
 							editBPsys.getText().toString(), editBPdia.getText().toString());
-
 
 					db.execSQL("INSERT INTO user_metrics (user_id, weight, height, glucose, hba1c, BPsys, BPdia, created_on) " +
 							"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+editWeight.getText()+"','"+editHeigth.getText()+
@@ -150,14 +140,13 @@ public class setmet extends Activity {
 		btnCancel.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				Intent dia = new Intent(getApplicationContext(), diadash.class);
+				dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(dia);
 				finish();
 			}
 		});
 		
-	}
-
-	public void finish() {
-		super.finish();
 	}
 	
 	// Display message

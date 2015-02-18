@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#F7EAC8" >
 
     <TextView
         android:id="@+id/welcomeMsg"
@@ -16,7 +17,7 @@
         android:layout_marginTop="15dp"
         android:text="REGISTER"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FF0000"
+        android:textColor="#DB3340"
         android:textSize="35sp"
         android:textStyle="bold" />
 
@@ -28,7 +29,7 @@
         android:layout_below="@+id/welcomeMsg"
         android:layout_marginTop="10dp"
         android:text="Full Name"
-        android:textColor="#FF0000"
+        android:textColor="#DB3340"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -71,7 +72,7 @@
         android:layout_below="@+id/registerName"
         android:layout_marginTop="10dp"
         android:text="E-mail"
-        android:textColor="#FF0000"
+        android:textColor="#DB3340"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -83,7 +84,7 @@
         android:layout_below="@+id/registerEmail"
         android:layout_marginTop="10dp"
         android:text="Password"
-        android:textColor="#FF0000"
+        android:textColor="#DB3340"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -98,7 +99,7 @@
         android:background="@null"
         android:padding="15dp"
         android:text="Already registered? Login here..."
-        android:textColor="#FF0000"
+        android:textColor="#DB3340"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -110,10 +111,10 @@
         android:layout_alignLeft="@+id/registerPassword"
         android:layout_alignRight="@+id/registerPassword"
         android:layout_marginBottom="10dp"
-        android:background="#FF0000"
+        android:background="#DB3340"
         android:padding="8dp"
         android:text="Register"
-        android:textColor="#FFFFFF"
+        android:textColor="#F7EAC8"
         android:textSize="20sp"
         android:textStyle="bold" />
 
