@@ -366,8 +366,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 		mBuilder.setContentTitle("HLT Movement Update");
 		mBuilder.setContentText("You've moved: "+formatter.format(timerDist)+"m in the last while...");
 		mBuilder.setTicker("You haven't moved much lately!");
-		mBuilder.setSmallIcon(R.drawable.hlt);
-		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hltlarge);
+		mBuilder.setSmallIcon(R.drawable.ic_launcher);
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
 		mBuilder.setLargeIcon(bm);
 		mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
 		// FIGURE THESE OUT

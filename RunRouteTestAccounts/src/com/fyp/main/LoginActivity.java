@@ -50,8 +50,10 @@ public class LoginActivity extends Activity {
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.loginEmail);
 		inputPassword = (EditText) findViewById(R.id.loginPassword);
+		
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
+		
 		loginErrorMsg = (TextView) findViewById(R.id.login_error);
 
 		// Login button Click Event

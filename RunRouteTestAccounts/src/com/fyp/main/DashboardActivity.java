@@ -13,7 +13,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-
 public class DashboardActivity extends Activity {
 	UserFunctions userFunctions;
 	Button btnLogout, btnDia, btnFit;
@@ -59,7 +58,6 @@ public class DashboardActivity extends Activity {
 				}
 			});
 
-
 			btnDia.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
@@ -78,7 +76,8 @@ public class DashboardActivity extends Activity {
 				}
 			});
 
-		} else{
+		} 
+		else{
 			// user is not logged in show login screen
 			Intent login = new Intent(getApplicationContext(), LoginActivity.class);
 			login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

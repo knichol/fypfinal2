@@ -4,13 +4,17 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="16" />
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="22" />
 
+    <!-- Permissions -->
     <permission
         android:name="com.parse.anywall.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" >
     </permission>
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.parse.anywall.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -126,12 +130,33 @@
             android:name="com.fyp.fitness.exdist"
             android:label="@string/app_name" >
         </activity>
-        
-                <!-- FITNESS: Timed Exercise -->
+
+        <!-- FITNESS: Timed Exercise -->
         <activity
             android:name="com.fyp.fitness.extimed"
             android:label="@string/app_name" >
         </activity>
+
+        <!-- DIABETES: Reminders -->
+        <activity
+            android:name="com.fyp.reminders.AlarmManagerActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.fyp.reminders.Reminder"
+            android:label="@string/app_name" >
+        </activity>   
+        <activity
+            android:name="com.fyp.reminders.AddReminder"
+            android:label="@string/app_name" >
+        </activity>        <activity
+            android:name="com.fyp.reminders.DeleteReminder"
+            android:label="@string/app_name" >
+        </activity>
+
+        <!-- Broadcast receiver -->
+        <receiver android:name="com.fyp.reminders.AlarmManagerBroadcastReceiver" >
+        </receiver>
     </application>
 
 </manifest>

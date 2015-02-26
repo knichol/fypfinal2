@@ -39,6 +39,15 @@ public class setmet extends Activity {
 		
 		setContentView(R.layout.upd_metrics);
 
+		// If coming from AddReminder
+		Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+        	int nullMets = extras.getInt("metNull");
+        	if(nullMets == 1){
+    			showMessage("No Records Found", "Please enter values!");
+        	}
+        }  
+		
 		// Enable permissions to post to db
 		if (android.os.Build.VERSION.SDK_INT > 9)
 		{
@@ -131,6 +140,11 @@ public class setmet extends Activity {
 
 					showMessage("Success", "Record added");
 					clearText();
+					
+//					Intent dia = new Intent(getApplicationContext(), diadash.class);
+//					dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//					startActivity(dia);
+//					finish();
 				}
 			}
 		});

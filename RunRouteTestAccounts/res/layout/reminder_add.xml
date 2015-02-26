@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7EAC8"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/remindSetMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/remindSetDate"
+        android:layout_alignRight="@+id/remindSetDate"
+        android:layout_below="@+id/textView1"
+        android:ems="10" />
+
+    <DatePicker
+        android:id="@+id/remindSetDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:onClick="showDatePickerDialog" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/remindSetMsg"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="51dp"
+        android:text="Reminder Message"
+        android:textColor="#28ABE3"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TimePicker
+        android:id="@+id/remindSetTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:onClick="showTimePickerDialog"/>
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="Add Reminder"
+        android:textColor="#28ABE3"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnRemindAdd"
+        android:layout_width="158dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#28ABE3"
+        android:text="Add Reminder"
+        android:textColor="#F7EAC8"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnRemindAddCancel"
+        android:layout_width="158dp"
+        android:layout_height="55dp"
+        android:layout_alignBaseline="@+id/btnRemindAdd"
+        android:layout_alignBottom="@+id/btnRemindAdd"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:background="#28ABE3"
+        android:text="Cancel"
+        android:textColor="#F7EAC8"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/remindSetMsg"
+        android:layout_below="@+id/remindSetMsg"
+        android:layout_marginTop="10dp"
+        android:text="Reminder Time"
+        android:textColor="#28ABE3"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/remindSetTime"
+        android:layout_below="@+id/remindSetTime"
+        android:layout_marginTop="10dp"
+        android:text="Reminder Date"
+        android:textColor="#28ABE3"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

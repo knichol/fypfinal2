@@ -2,6 +2,7 @@ package com.fyp.diabetes;
 
 import com.example.androidgpsexample.R;
 import com.fyp.library.UserFunctions;
+import com.fyp.reminders.Reminder;
 
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
@@ -16,7 +17,7 @@ import android.widget.Button;
 
 public class diadash extends Activity {
 
-	Button btnProf, btnUpd, btnHist;
+	Button btnProf, btnUpd, btnHist, btnRemind;
 	SQLiteDatabase db;
 	UserFunctions userFunction = new UserFunctions();
 
@@ -30,9 +31,13 @@ public class diadash extends Activity {
 		btnProf = (Button) findViewById(R.id.btnMetrics);
 		btnUpd = (Button) findViewById(R.id.btnSetMet);
 		btnHist = (Button) findViewById(R.id.btnHist);
-
+		btnRemind = (Button) findViewById(R.id.btnRemind);
+		
+		// Finding or creating the database is nonexistent 
 		db = openOrCreateDatabase("MetricsDB", Context.MODE_PRIVATE, null);
-				
+		
+		metricsNull(db);
+		
 		// Profile Link Button
 		btnProf.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -75,6 +80,16 @@ public class diadash extends Activity {
 				showMessage("All Entries", buffer.toString());
 			}
 		});
+		
+		// Reminders Button
+		btnRemind.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Intent dia = new Intent(getApplicationContext(), Reminder.class);
+				dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(dia);
+			}
+		});
 
 	}
 
@@ -87,5 +102,28 @@ public class diadash extends Activity {
 		builder.show();
 	}
 
+	public void metricsNull(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS user_metrics ("
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 			
+				+ "user_id TEXT,"
+				+ "weight TEXT,"
+				+ "height TEXT,"
+				+ "glucose TEXT,"
+				+ "hba1c TEXT,"
+				+ "BPsys TEXT,"
+				+ "BPdia TEXT,"
+				+ "created_on TEXT)");
+
+		// Checking currently logged in users metrics
+		Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = "+
+				"'"+userFunction.getUID(getApplicationContext())+"'", null);
+		if(c.getCount()==0) {
+			Intent dia = new Intent(getApplicationContext(), setmet.class);
+			dia.putExtra("metNull", 1);
+			dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(dia);
+			finish();
+		}
+	}
 }
 

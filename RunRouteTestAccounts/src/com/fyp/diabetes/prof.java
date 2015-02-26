@@ -63,11 +63,13 @@ public class prof extends Activity {
 				+ "created_on TEXT)");
 
 		// Checking currently logged in users metrics
-		Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = " +
+		Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = "+
 				"'"+userFunction.getUID(getApplicationContext())+"'", null);
 		if(c.getCount()==0) {
-			showMessage("Error", "No records found");
-			return;
+			Intent dia = new Intent(getApplicationContext(), setmet.class);
+			dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(dia);
+			finish();
 		}
 
 		if(c.moveToLast()) {				

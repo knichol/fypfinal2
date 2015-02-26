@@ -14,14 +14,15 @@ import org.json.JSONObject;
 
 
 import android.content.Context;
+import android.util.Log;
 
 public class UserFunctions {
 
 	private JSONParser jsonParser;
 
-	private static String loginURL = "http://danu6.it.nuigalway.ie/dbknp/android_login_api/";
-	private static String registerURL = "http://danu6.it.nuigalway.ie/dbknp/android_login_api/";
-	private static String postURL = "http://danu6.it.nuigalway.ie/dbknp/test/public_html/android_login_api/";
+	private static String loginURL = "http://danu6.it.nuigalway.ie/dbknp/test2/public_html/android_login_api/";
+	private static String registerURL = "http://danu6.it.nuigalway.ie/dbknp/test2/public_html/android_login_api/";
+	private static String postURL = "http://danu6.it.nuigalway.ie/dbknp/test2/public_html/android_login_api/";
 
 	private static String login_tag = "login";
 	private static String register_tag = "register";
@@ -45,10 +46,12 @@ public class UserFunctions {
 		params.add(new BasicNameValuePair("tag", login_tag));
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("password", password));
+		Log.e("JSON loginUser", email + password);
 		JSONObject json = jsonParser.getJSONFromUrl(loginURL, params);
 		// return json
-		// Log.e("JSON", json.toString());
+		Log.e("JSON loginUser", json.toString());
 		return json;
+		
 	}
 
 	/**
