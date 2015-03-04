@@ -126,7 +126,7 @@
         android:text="(kg)" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/completed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="241dp"

@@ -56,6 +56,7 @@ public class Reminder extends Activity {
 			@Override
 			public void onClick(View view) {
 				Intent i = new Intent(getApplicationContext(), AddReminder.class);
+				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(i);
 				finish();
 			}
@@ -65,6 +66,7 @@ public class Reminder extends Activity {
 			@Override
 			public void onClick(View view) {
 				Intent i = new Intent(getApplicationContext(), diadash.class);
+				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(i);
 				finish();
 			}

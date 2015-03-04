@@ -6,8 +6,6 @@ import java.text.NumberFormat;
 import com.example.androidgpsexample.R;
 import com.fyp.diabetes.diadash;
 import com.fyp.library.UserFunctions;
-import com.fyp.main.MainActivity;
-
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;

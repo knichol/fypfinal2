@@ -21,8 +21,8 @@
         android:id="@+id/TextView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/complete_by"
+        android:layout_below="@+id/complete_by"
         android:layout_marginTop="25dp"
         android:text="Weight:"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -87,7 +87,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/complete_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageView1"
@@ -167,8 +167,8 @@
         android:id="@+id/updateHeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBaseline="@+id/complete_by"
+        android:layout_alignBottom="@+id/complete_by"
         android:layout_alignLeft="@+id/WelcUpd"
         android:layout_alignRight="@+id/WelcUpd"
         android:ems="10"

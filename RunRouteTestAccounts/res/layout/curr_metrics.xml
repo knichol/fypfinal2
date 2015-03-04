@@ -21,8 +21,8 @@
         android:id="@+id/dashboardUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/complete_by"
+        android:layout_below="@+id/complete_by"
         android:layout_marginTop="15dp"
         android:text="Weight:"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -272,8 +272,8 @@
         android:id="@+id/editHeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBaseline="@+id/complete_by"
+        android:layout_alignBottom="@+id/complete_by"
         android:layout_alignLeft="@+id/WelcCurr"
         android:text="180"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -282,7 +282,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/complete_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageView1"

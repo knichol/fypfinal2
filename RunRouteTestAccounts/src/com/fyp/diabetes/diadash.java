@@ -1,6 +1,7 @@
 package com.fyp.diabetes;
 
 import com.example.androidgpsexample.R;
+import com.fyp.graphs.XYChartBuilder;
 import com.fyp.library.UserFunctions;
 import com.fyp.reminders.Reminder;
 
@@ -17,7 +18,7 @@ import android.widget.Button;
 
 public class diadash extends Activity {
 
-	Button btnProf, btnUpd, btnHist, btnRemind;
+	Button btnProf, btnUpd, btnHist, btnRemind, btnGraph;
 	SQLiteDatabase db;
 	UserFunctions userFunction = new UserFunctions();
 
@@ -32,12 +33,13 @@ public class diadash extends Activity {
 		btnUpd = (Button) findViewById(R.id.btnSetMet);
 		btnHist = (Button) findViewById(R.id.btnHist);
 		btnRemind = (Button) findViewById(R.id.btnRemind);
-		
+		btnGraph = (Button) findViewById(R.id.btnFit);
+
 		// Finding or creating the database is nonexistent 
 		db = openOrCreateDatabase("MetricsDB", Context.MODE_PRIVATE, null);
-		
+
 		metricsNull(db);
-		
+
 		// Profile Link Button
 		btnProf.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -80,12 +82,22 @@ public class diadash extends Activity {
 				showMessage("All Entries", buffer.toString());
 			}
 		});
-		
+
 		// Reminders Button
 		btnRemind.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				Intent dia = new Intent(getApplicationContext(), Reminder.class);
+				dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(dia);
+			}
+		});
+
+		// Graphs Button
+		btnGraph.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Intent dia = new Intent(getApplicationContext(), XYChartBuilder.class);
 				dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(dia);
 			}

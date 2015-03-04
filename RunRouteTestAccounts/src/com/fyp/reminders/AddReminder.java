@@ -22,7 +22,6 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.example.androidgpsexample.R;
-import com.fyp.diabetes.diadash;
 import com.fyp.library.UserFunctions;
 
 public class AddReminder extends Activity {
@@ -85,6 +84,7 @@ public class AddReminder extends Activity {
 				AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
 				builder.setTitle("Repeat?");
 				builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int item) {
 						switch(item) {
 						case 0:
@@ -114,7 +114,8 @@ public class AddReminder extends Activity {
 		btnBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent i = new Intent(getApplicationContext(), diadash.class);
+				Intent i = new Intent(getApplicationContext(), Reminder.class);
+				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(i);
 				finish();
 			}
@@ -137,7 +138,6 @@ public class AddReminder extends Activity {
 		String year = String.valueOf(datePicker.getYear());
 		String date = day+"/"+month+"/"+year;
 
-		//Lets suppose you have a DatePicker instance called datePicker
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
 		cal.set(Calendar.MONTH, datePicker.getMonth());
@@ -225,6 +225,7 @@ public class AddReminder extends Activity {
 		i.putExtra("msUntil", dateMS);
 		i.putExtra("remindID", remindID);
 		i.putExtra("repeat", rep);
+		i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(i);
 		finish();
 	}

@@ -1,6 +1,8 @@
 package com.fyp.fitness;
 
 import com.example.androidgpsexample.R;
+import com.fyp.fitgoals.Goal;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,9 +35,17 @@ public class fitdash extends Activity{
 				startActivity(dia);		
 			}
 		});
-	
-	
-	
-	
+
+		// Exercise Dash Link Button
+		btnGoals.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Intent dia = new Intent(getApplicationContext(), Goal.class);
+				dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(dia);		
+			}
+		});
+
+
 	}
 }

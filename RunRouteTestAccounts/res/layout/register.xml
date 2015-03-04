@@ -22,7 +22,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/completed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/welcomeMsg"
@@ -37,9 +37,9 @@
         android:id="@+id/registerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignLeft="@+id/completed"
         android:layout_alignRight="@+id/welcomeMsg"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/completed"
         android:ems="10" >
 
         <requestFocus />

@@ -36,6 +36,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 			l = l/1000/60;
 			msgStr.append("Mins timed for: "+String.valueOf(l)+" ");
 		}
+		
 		Format formatter = new SimpleDateFormat("hh:mm:ss a");
 		msgStr.append(formatter.format(new Date()));
 

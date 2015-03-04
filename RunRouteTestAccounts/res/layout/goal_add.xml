@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7EAC8"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/complete_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="Add Goal"
+        android:textColor="#1FDA9A"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnAddNewGoalType"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/completed"
+        android:layout_alignRight="@+id/addGoalDesc"
+        android:layout_below="@+id/complete_by"
+        android:layout_marginTop="10dp"
+        android:background="#1FDA9A"
+        android:text="Click To Select Goal Type"
+        android:textColor="#F7EAC8"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/addGoalValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextView02"
+        android:layout_centerHorizontal="true"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/addGoalDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/addGoalValue"
+        android:layout_below="@+id/completed"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/addGoalDesc"
+        android:layout_below="@+id/btnAddNewGoalType"
+        android:layout_marginTop="15dp"
+        android:text="Goal Description"
+        android:textColor="#1FDA9A"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/addGoalValue"
+        android:layout_below="@+id/addGoalDesc"
+        android:layout_marginTop="15dp"
+        android:text="Value"
+        android:textColor="#1FDA9A"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/addGoalValue"
+        android:layout_below="@+id/addGoalValue"
+        android:layout_marginTop="15dp"
+        android:text="Complete By"
+        android:textColor="#1FDA9A"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <DatePicker
+        android:id="@+id/addGoalDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextView01"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnAddNewGoalCancel"
+        android:layout_width="158dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="#1FDA9A"
+        android:text="Cancel"
+        android:textColor="#F7EAC8"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnAddNewGoal"
+        android:layout_width="158dp"
+        android:layout_height="55dp"
+        android:layout_alignBaseline="@+id/btnAddNewGoalCancel"
+        android:layout_alignBottom="@+id/btnAddNewGoalCancel"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#1FDA9A"
+        android:text="Add Goal"
+        android:textColor="#F7EAC8"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

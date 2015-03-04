@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/remindSetDate"
         android:layout_alignRight="@+id/remindSetDate"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/complete_by"
         android:ems="10" />
 
     <DatePicker
@@ -23,12 +23,12 @@
         android:onClick="showDatePickerDialog" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/complete_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/remindSetMsg"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="50dp"
         android:text="Reminder Message"
         android:textColor="#28ABE3"
         android:textSize="20sp"
@@ -38,8 +38,8 @@
         android:id="@+id/remindSetTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/completed"
+        android:layout_below="@+id/completed"
         android:onClick="showTimePickerDialog"/>
 
     <TextView
@@ -83,7 +83,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/completed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/remindSetMsg"

@@ -7,7 +7,7 @@
     android:background="#F7EAC8" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/complete_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
