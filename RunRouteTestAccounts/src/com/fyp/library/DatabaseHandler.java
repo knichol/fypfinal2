@@ -62,8 +62,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				+ "distance TEXT,"
 				+ "time TEXT,"
 				+ "steps TEXT," 
-				+ "type TEXT" 
-				+ "created_at TEXT" + ")";
+				+ "type TEXT," 
+				+ "created_on TEXT" + ")";
 		db.execSQL(CREATE_DATA_TABLE);
 
 	}
@@ -99,38 +99,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
-		values.put(KEY_UID, id); // Name
-		values.put(KEY_DISTANCE, distance); // Email
-		values.put(KEY_TIME, time); // Email
-		values.put(KEY_STEPS, steps); // Email
-		values.put(KEY_CREATED_AT, created_at); // Created At
+		values.put(KEY_UID, id);
+		values.put(KEY_DISTANCE, distance);
+		values.put(KEY_TIME, time); 
+		values.put(KEY_STEPS, steps); 
+		values.put(KEY_CREATED_AT, created_at);
 
 		// Inserting Row
 		db.insert(TABLE_DATA, null, values);
 		db.close(); // Closing database connection
 	}
 
-	// Possible function to use in the future... not really sure what i started for...
-	//	public void add(String id, String distance, String time, String steps, String created_at) {
-	//		SQLiteDatabase db = this.getWritableDatabase();
-	//		
-	//		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-	//		Date date = new Date();
-	//		//System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
-	//		UserFunctions userFunction = new UserFunctions();
-	//		db.execSQL("INSERT INTO data (user_id, weight, height, glucose, hba1c, BPsys, BPdia, created_on) " +
-	//				"VALUES('"+userFunction.getUID(getApplicationContext())
-	//				+"','"+editWeight.getText()
-	//				+"','"+editHeigth.getText()
-	//				+"','"+editGlucose.getText()
-	//				+"','"+editA1c.getText()
-	//				+"','"+editBPsys.getText()
-	//				+"','"+editBPdia.getText()
-	//				+"','"+dateFormat.format(date).toString()+"');");
-	//
-	//	
-	//	}
-
+	
 	/**
 	 * Getting user data from database
 	 * */

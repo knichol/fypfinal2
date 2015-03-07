@@ -37,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/TextView02"
         android:layout_centerHorizontal="true"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/addGoalDesc"

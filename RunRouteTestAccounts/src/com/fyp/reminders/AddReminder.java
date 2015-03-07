@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -32,8 +34,8 @@ public class AddReminder extends Activity {
 	TimePicker timePicker;
 	UserFunctions userFunction = new UserFunctions();
 	AlertDialog levelDialog;
-	
-	
+
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
@@ -157,6 +159,11 @@ public class AddReminder extends Activity {
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 
+		if(checkInternet(getApplicationContext())) {
+			userFunction.postReminder(userFunction.getUID(getApplicationContext()), remindMsg.getText().toString(),
+					time, date);
+		}
+		
 		db.execSQL("INSERT INTO user_reminder (user_id, message, time, date, ms_until, remindID, created_on) " +
 				"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+remindMsg.getText()+
 				"','"+time+"','"+date+"','"+dateMS+"','"+remindID+"','"+dateFormat.format(now).toString()+"');");
@@ -228,5 +235,15 @@ public class AddReminder extends Activity {
 		i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(i);
 		finish();
+	}
+
+	public boolean checkInternet(Context context) {
+		ConnectivityManager conn = (ConnectivityManager) 
+				context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo wifi = conn.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		NetworkInfo mobile = conn.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		// Check if wifi or mobile network is available or not. If any of them is
+		// available or connected then it will return true, otherwise false;
+		return wifi.isConnected() || mobile.isConnected();
 	}
 }

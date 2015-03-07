@@ -124,6 +124,8 @@ public class diadash extends Activity {
 				+ "hba1c TEXT,"
 				+ "BPsys TEXT,"
 				+ "BPdia TEXT,"
+				+ "sex TEXT,"
+				+ "birth_year TEXT,"
 				+ "created_on TEXT)");
 
 		// Checking currently logged in users metrics

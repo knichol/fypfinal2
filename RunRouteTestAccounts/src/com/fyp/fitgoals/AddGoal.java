@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -49,8 +51,8 @@ public class AddGoal extends Activity {
 
 		goalDesc = (EditText)findViewById(R.id.addGoalDesc);		
 		goalValue = (EditText)findViewById(R.id.addGoalValue);
-		
-		
+
+
 		btnAdd = (Button)findViewById(R.id.btnAddNewGoal);
 		btnBack = (Button)findViewById(R.id.btnAddNewGoalCancel);		
 		btnType = (Button)findViewById(R.id.btnAddNewGoalType);
@@ -71,8 +73,8 @@ public class AddGoal extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// Strings to Show In Dialog with Radio Buttons
-				CharSequence[] items = {" Exercise Time "," Distance "," Steps Taken "," Weight Loss "};
-
+				//CharSequence[] items = {" Exercise Time "," Distance "," Steps Taken "," Weight Loss "};
+				CharSequence[] items = {" Exercise Time "," Distance "," Weight Loss "};
 				// Creating and Building the Dialog 
 				AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
 				builder.setTitle("Select Goal Type");
@@ -90,12 +92,12 @@ public class AddGoal extends Activity {
 							btnType.setText("Distance");
 							goalDesc.requestFocus();
 							break;
+							//						case 2:
+							//							type = "step";
+							//							btnType.setText("Steps Taken");
+							//							goalDesc.requestFocus();
+							//							break;			
 						case 2:
-							type = "step";
-							btnType.setText("Steps Taken");
-							goalDesc.requestFocus();
-							break;			
-						case 3:
 							type = "weight";
 							btnType.setText("Weight Loss");
 							goalDesc.requestFocus();
@@ -121,16 +123,22 @@ public class AddGoal extends Activity {
 
 				Date now = new Date();
 				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-				
+
+				if(checkInternet(getApplicationContext())) {
+					userFunction.postGoal(userFunction.getUID(getApplicationContext()), goalDesc.getText().toString(), type, 
+							goalValue.getText().toString(), date, "No");
+				}
+
 				db.execSQL("INSERT INTO user_goals (user_id, goal_desc, type, value, complete_by, completed, created_on) " +
 						"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+goalDesc.getText()+
 						"','"+type+"','"+goalValue.getText()+"','"+date+"','"+0+"','"+dateFormat.format(now).toString()+"');");
-			
+
 				Intent i = new Intent(getApplicationContext(), Goal.class);
 				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(i);
 				finish();
 			}
+
 		});
 
 		btnBack.setOnClickListener(new View.OnClickListener() {
@@ -144,4 +152,15 @@ public class AddGoal extends Activity {
 		});
 
 	}	
+
+	public boolean checkInternet(Context context) {
+		ConnectivityManager conn = (ConnectivityManager) 
+				context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo wifi = conn.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		NetworkInfo mobile = conn.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		// Check if wifi or mobile network is available or not. If any of them is
+		// available or connected then it will return true, otherwise false;
+		return wifi.isConnected() || mobile.isConnected();
+	}
+
 }

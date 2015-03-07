@@ -27,7 +27,10 @@ public class UserFunctions {
 	private static String login_tag = "login";
 	private static String register_tag = "register";
 	private static String postnew_tag = "postnew";
-
+	private static String postgoal_tag = "postgoal";	
+	private static String postremind_tag = "postremind";	
+	private static String postrun_tag = "postnew";	
+	
 	private static String postmetrics_tag = "postmet";
 
 	// constructor
@@ -74,11 +77,12 @@ public class UserFunctions {
 		return json;
 	}
 
-	public JSONObject postNew(String id, String distance, String time, String steps){
+	public JSONObject postNew(String id, String type, String distance, String time, String steps){
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("tag", postnew_tag));
 		params.add(new BasicNameValuePair("id", id));
+		params.add(new BasicNameValuePair("type", type));
 		params.add(new BasicNameValuePair("distance", distance));
 		params.add(new BasicNameValuePair("time", time));
 		params.add(new BasicNameValuePair("steps", steps));
@@ -90,7 +94,7 @@ public class UserFunctions {
 	}
 
 	public JSONObject postMetrics(String id, String weight, String height, String glucose, String a1c,
-			String BPsys, String BPdia){
+			String BPsys, String BPdia, String sex, String year){
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("tag", postmetrics_tag));
@@ -101,13 +105,48 @@ public class UserFunctions {
 		params.add(new BasicNameValuePair("a1c", a1c));
 		params.add(new BasicNameValuePair("BPsys", BPsys));
 		params.add(new BasicNameValuePair("BPdia", BPdia));
-
+		params.add(new BasicNameValuePair("sex", sex));	
+		params.add(new BasicNameValuePair("birth_year", year));
+		
+		// getting JSON Object
+		JSONObject json = jsonParser.getJSONFromUrl(postURL, params);
+		// return json
+		return json;
+	}
+	
+	public JSONObject postGoal(String id, String desc, String type, String value, String comp_by,
+			String comp){
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", postgoal_tag));
+		params.add(new BasicNameValuePair("id", id));
+		params.add(new BasicNameValuePair("desc", desc));
+		params.add(new BasicNameValuePair("type", type));
+		params.add(new BasicNameValuePair("value", value));
+		params.add(new BasicNameValuePair("comp_by", comp_by));
+		params.add(new BasicNameValuePair("comp", comp));
+		
 		// getting JSON Object
 		JSONObject json = jsonParser.getJSONFromUrl(postURL, params);
 		// return json
 		return json;
 	}
 
+	public JSONObject postReminder(String id, String msg, String time, String date){
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", postremind_tag));
+		params.add(new BasicNameValuePair("id", id));
+		params.add(new BasicNameValuePair("message", msg));
+		params.add(new BasicNameValuePair("time", time));
+		params.add(new BasicNameValuePair("date", date));
+		
+		// getting JSON Object
+		JSONObject json = jsonParser.getJSONFromUrl(postURL, params);
+		// return json
+		return json;
+	}
+	
 	/**
 	 * Function get Login status
 	 * */

@@ -1,18 +1,3 @@
-/**
- * Copyright (C) 2009 - 2013 SC 4ViewSoft SRL
- *  
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *  
- *      http://www.apache.org/licenses/LICENSE-2.0
- *  
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.fyp.graphs;
 
 import org.achartengine.ChartFactory;
@@ -25,15 +10,18 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import com.example.androidgpsexample.R;
+import com.fyp.library.UserFunctions;
 
 import android.app.Activity;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -53,40 +41,12 @@ public class XYChartBuilder extends Activity {
 	/** Button for creating a new series of data. */
 	private Button mNewSeries;
 
-	/** Button for adding entered data to the current series. */
-	private Button mAdd;
-
-	/** Edit text field for entering the X value of the data to be added. */
-	private EditText mX;
-
-	/** Edit text field for entering the Y value of the data to be added. */
-	private EditText mY;
-
 	/** The chart view that displays the data. */
 	private GraphicalView mChartView;
 
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-
-		// save the current data, for instance when changing screen orientation
-		outState.putSerializable("dataset", mDataset);
-		outState.putSerializable("renderer", mRenderer);
-		outState.putSerializable("current_series", mCurrentSeries);
-		outState.putSerializable("current_renderer", mCurrentRenderer);
-	}
-
-	@Override
-	protected void onRestoreInstanceState(Bundle savedState) {
-		super.onRestoreInstanceState(savedState);
-		
-		// restore the current data, for instance when changing the screen
-		// orientation
-		mDataset = (XYMultipleSeriesDataset) savedState.getSerializable("dataset");
-		mRenderer = (XYMultipleSeriesRenderer) savedState.getSerializable("renderer");
-		mCurrentSeries = (XYSeries) savedState.getSerializable("current_series");
-		mCurrentRenderer = (XYSeriesRenderer) savedState.getSerializable("current_renderer");
-	}
+	SQLiteDatabase db;
+	UserFunctions userFunction = new UserFunctions();
+	Cursor c;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,73 +54,134 @@ public class XYChartBuilder extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.xy_chart);
 
-		// the top part of the UI components for adding new data points
-		mX = (EditText) findViewById(R.id.xValue);
-		mY = (EditText) findViewById(R.id.yValue);
-		mAdd = (Button) findViewById(R.id.add);
-
 		// set some properties on the main renderer
 		mRenderer.setApplyBackgroundColor(true);
 		mRenderer.setBackgroundColor(Color.argb(255, 247, 234, 200));
-		mRenderer.setAxisTitleTextSize(16);
-		mRenderer.setChartTitleTextSize(20);
-		mRenderer.setLabelsTextSize(15);
-		mRenderer.setLegendTextSize(15);
-		mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
+		mRenderer.setMarginsColor(Color.argb(255, 247, 234, 200));
+		mRenderer.setAxisTitleTextSize(25);
+		mRenderer.setChartTitleTextSize(30);
+		mRenderer.setLabelsTextSize(30);
+		mRenderer.setLegendTextSize(30);
+		mRenderer.setMargins(new int[] { 10, 30, 25, 20 });
 		mRenderer.setZoomButtonsVisible(false);
-		mRenderer.setPointSize(5);
+		mRenderer.setPointSize(15);
+		mRenderer.setShowGrid(true);
 
 		// the button that handles the new series of data creation
 		mNewSeries = (Button) findViewById(R.id.new_series);
-		
+
 		mNewSeries.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String seriesTitle = "Series " + (mDataset.getSeriesCount() + 1);
-				// create a new series of data
-				XYSeries series = new XYSeries(seriesTitle);
-				mDataset.addSeries(series);
-				mCurrentSeries = series;
-				// create a new renderer for the new series
-				XYSeriesRenderer renderer = new XYSeriesRenderer();
-				mRenderer.addSeriesRenderer(renderer);
-				// set some renderer properties
-				renderer.setPointStyle(PointStyle.CIRCLE);
-				renderer.setFillPoints(true);
-				renderer.setDisplayChartValues(true);
-				renderer.setDisplayChartValuesDistance(10);
-				mCurrentRenderer = renderer;
-				setSeriesWidgetsEnabled(true);
-				mChartView.repaint();
+				//repaint();
+				series("Weight");
+				getWeight();
 			}
 		});
 
-		mAdd.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				double x = 0;
-				double y = 0;
-				try {
-					x = Double.parseDouble(mX.getText().toString());
-				} catch (NumberFormatException e) {
-					mX.requestFocus();
-					return;
-				}
-				try {
-					y = Double.parseDouble(mY.getText().toString());
-				} catch (NumberFormatException e) {
-					mY.requestFocus();
-					return;
-				}
-				// add a new data point to the current series
-				mCurrentSeries.add(x, y);
-				mX.setText("");
-				mY.setText("");
-				mX.requestFocus();
-				// repaint the chart such as the newly added point to be visible
-				mChartView.repaint();
-			}
-		});
+	}
+
+	public void series(String S){
+		//String seriesTitle = "Series " + (mDataset.getSeriesCount() + 1);
+		String seriesTitle = S;
+
+		// create a new series of data
+		XYSeries series = new XYSeries(seriesTitle);
+		mDataset.addSeries(series);
+		mCurrentSeries = series;
+		// create a new renderer for the new series
+		XYSeriesRenderer renderer = new XYSeriesRenderer();
+		mRenderer.addSeriesRenderer(renderer);
+		// set some renderer properties
+		renderer.setPointStyle(PointStyle.CIRCLE);
+		renderer.setFillPoints(true);
+		renderer.setDisplayChartValues(true);
+		renderer.setDisplayChartValuesDistance(10);
+		mCurrentRenderer = renderer;
+		mChartView.repaint();
+	}
+
+	public void getWeight(){
+		// Finding or creating the database is nonexistent 
+		db = openOrCreateDatabase("MetricsDB", Context.MODE_PRIVATE, null);
+		db.execSQL("CREATE TABLE IF NOT EXISTS user_metrics ("
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 			
+				+ "user_id TEXT,"
+				+ "weight TEXT,"
+				+ "height TEXT,"
+				+ "glucose TEXT,"
+				+ "hba1c TEXT,"
+				+ "BPsys TEXT,"
+				+ "BPdia TEXT,"
+				+ "created_on TEXT)");
+
+		// Checking currently logged in users metrics
+		c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = "+
+				"'"+userFunction.getUID(getApplicationContext())+"'", null);
+
+		int i=1;
+		while(c.moveToNext()) {
+			addpts(i++,Double.parseDouble(c.getString(2)));
+		}
+	}
+	
+	public void getGlucose(){
+		// Finding or creating the database is nonexistent 
+		db = openOrCreateDatabase("MetricsDB", Context.MODE_PRIVATE, null);
+		db.execSQL("CREATE TABLE IF NOT EXISTS user_metrics ("
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 			
+				+ "user_id TEXT,"
+				+ "weight TEXT,"
+				+ "height TEXT,"
+				+ "glucose TEXT,"
+				+ "hba1c TEXT,"
+				+ "BPsys TEXT,"
+				+ "BPdia TEXT,"
+				+ "created_on TEXT)");
+
+		// Checking currently logged in users metrics
+		c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = "+
+				"'"+userFunction.getUID(getApplicationContext())+"'", null);
+
+		int i=1;
+		while(c.moveToNext()) {
+			addpts(i++,Double.parseDouble(c.getString(4)));
+		}
+	}
+	
+	public void getA1c(){
+		// Finding or creating the database is nonexistent 
+		db = openOrCreateDatabase("MetricsDB", Context.MODE_PRIVATE, null);
+		db.execSQL("CREATE TABLE IF NOT EXISTS user_metrics ("
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 			
+				+ "user_id TEXT,"
+				+ "weight TEXT,"
+				+ "height TEXT,"
+				+ "glucose TEXT,"
+				+ "hba1c TEXT,"
+				+ "BPsys TEXT,"
+				+ "BPdia TEXT,"
+				+ "created_on TEXT)");
+
+		// Checking currently logged in users metrics
+		c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = "+
+				"'"+userFunction.getUID(getApplicationContext())+"'", null);
+
+		int i=1;
+		while(c.moveToNext()) {
+			addpts(i++,Double.parseDouble(c.getString(5)));
+		}
+	}
+		
+	public void addpts(double nX, double nY){
+		double x = nX;
+		double y = nY;
+
+		// add a new data point to the current series
+		mCurrentSeries.add(x, y);
+
+		// repaint the chart such as the newly added point to be visible
+		mChartView.repaint();
 	}
 
 	@Override
@@ -178,7 +199,7 @@ public class XYChartBuilder extends Activity {
 					// handle the click event on the chart
 					SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
 					if (seriesSelection == null) {
-						Toast.makeText(XYChartBuilder.this, "No chart element", Toast.LENGTH_SHORT).show();
+						//Toast.makeText(XYChartBuilder.this, "No chart element", Toast.LENGTH_SHORT).show();
 					} else {
 						// display information of the clicked point
 						Toast.makeText(
@@ -190,23 +211,10 @@ public class XYChartBuilder extends Activity {
 					}
 				}
 			});
-			layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,
-					LayoutParams.FILL_PARENT));
+			layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 			boolean enabled = mDataset.getSeriesCount() > 0;
-			setSeriesWidgetsEnabled(enabled);
 		} else {
 			mChartView.repaint();
 		}
-	}
-
-	/**
-	 * Enable or disable the add data to series widgets
-	 * 
-	 * @param enabled the enabled state
-	 */
-	private void setSeriesWidgetsEnabled(boolean enabled) {
-		mX.setEnabled(enabled);
-		mY.setEnabled(enabled);
-		mAdd.setEnabled(enabled);
 	}
 }

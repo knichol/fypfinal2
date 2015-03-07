@@ -42,6 +42,16 @@ public class Goal extends Activity {
 		btnBack = (Button)findViewById(R.id.btnLinkToFitHome);
 
 		db = openOrCreateDatabase("GoalsDB", Context.MODE_PRIVATE, null);
+		db.execSQL("CREATE TABLE IF NOT EXISTS user_goals ("
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 			
+				+ "user_id TEXT,"
+				+ "goal_desc TEXT,"
+				+ "type TEXT,"
+				+ "value INTEGER,"
+				+ "complete_by TEXT,"
+				+ "completed INTEGER,"
+				+ "created_on TEXT)");
+		
 		Cursor c = db.rawQuery("SELECT * FROM user_goals WHERE user_id = "+
 				"'"+userFunction.getUID(getApplicationContext())+"'", null);
 

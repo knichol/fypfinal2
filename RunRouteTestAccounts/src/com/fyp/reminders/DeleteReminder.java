@@ -88,7 +88,7 @@ public class DeleteReminder extends Activity{
 		
 		mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
 		mBuilder.setSound(null, Notification.DEFAULT_SOUND);
-		mBuilder.setLights(Color.WHITE, 5000, 5000);
+		mBuilder.setLights(Color.WHITE, 1500, 1000);
 
 		// Increase notification number every time a new notification arrives
 		mBuilder.setNumber(++numMessages);

@@ -41,6 +41,16 @@ public class Reminder extends Activity {
 		btnBack = (Button)findViewById(R.id.btnCurrRemindBack);
 
 		db = openOrCreateDatabase("RemindersDB", Context.MODE_PRIVATE, null);
+		db.execSQL("CREATE TABLE IF NOT EXISTS user_reminder ("
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 			
+				+ "user_id TEXT,"
+				+ "message TEXT,"
+				+ "time TEXT,"
+				+ "date TEXT,"
+				+ "ms_until INTEGER,"
+				+ "remindID INTEGER,"
+				+ "created_on TEXT)");
+		
 		Cursor c = db.rawQuery("SELECT * FROM user_reminder WHERE user_id = "+
 				"'"+userFunction.getUID(getApplicationContext())+"'", null);
 

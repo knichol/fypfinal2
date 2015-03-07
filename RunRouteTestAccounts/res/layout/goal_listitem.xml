@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="Test"
-            android:textColor="#0099CC" />
+            android:textColor="#DB3340" />
 
         <TextView
             android:id="@+id/complete_by"

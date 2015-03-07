@@ -210,6 +210,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 				Intent i = new Intent(getApplicationContext(), FinishScreen.class);
 				i.putExtra("distance", distance);
 				i.putExtra("time", runTime);
+				i.putExtra("type", "Free");
 				startActivity(i);
 				finish();
 			}

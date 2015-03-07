@@ -121,11 +121,11 @@ public class UpdateMetrics extends Activity implements OnClickListener
 			//System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
 			UserFunctions userFunction = new UserFunctions();
 			
-			userFunction.postMetrics(userFunction.getUID(getApplicationContext()), 
-					editWeight.getText().toString(), editHeigth.getText().toString(), 
-					editGlucose.getText().toString(), editA1c.getText().toString(), 
-					editBPsys.getText().toString(), editBPdia.getText().toString());
-			
+//			userFunction.postMetrics(userFunction.getUID(getApplicationContext()), 
+//					editWeight.getText().toString(), editHeigth.getText().toString(), 
+//					editGlucose.getText().toString(), editA1c.getText().toString(), 
+//					editBPsys.getText().toString(), editBPdia.getText().toString());
+//			
 			
 			db.execSQL("INSERT INTO user_metrics (user_id, weight, height, glucose, hba1c, BPsys, BPdia, created_on) " +
 					"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+editWeight.getText()+"','"+editHeigth.getText()+
