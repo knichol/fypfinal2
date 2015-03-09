@@ -42,14 +42,12 @@ import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 
 public class exdist extends FragmentActivity implements android.location.LocationListener,
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 
 	private LocationManager lm;
-	private Location loc;
 
 	// Notification variables
 	private NotificationManager mNotificationManager;
@@ -67,13 +65,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 
 	// Users input distance
 	private static float userdist;
-
 	private boolean run = true;
-
 	private int ctr;
-	private double lat,lng;
-	private SensorManager senSensorManager;
-	private Sensor senAccelerometer;
 
 	private double oldLat, oldLong, currLat, currLong;
 
@@ -87,12 +80,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 	public void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_main);
-
-
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -188,13 +177,13 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 		.setCancelable(false)
 		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			@Override
-			public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+			public void onClick(final DialogInterface dialog, final int id) {
 				startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 			}
 		})
 		.setNegativeButton("No", new DialogInterface.OnClickListener() {
 			@Override
-			public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+			public void onClick(final DialogInterface dialog, final int id) {
 				dialog.cancel();
 			}
 		});
@@ -220,13 +209,13 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 			if (ctr < 1){
 				mapFragment.getMap().moveCamera(CameraUpdateFactory.newLatLng(
 						new LatLng(arg0.getLatitude(), arg0.getLongitude())));
-				
+
 				currLat = arg0.getLatitude();
 				currLong = arg0.getLongitude();
 
 				oldLat = currLat;
 				oldLong = currLong;
-				
+
 				ctr += 1;
 
 				if(distance>=userdist){
@@ -237,13 +226,13 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 			else if (ctr == 1 && mapFragment.getMap().getMyLocation() != null){
 				mapFragment.getMap().moveCamera(CameraUpdateFactory.newLatLng(
 						new LatLng(arg0.getLatitude(), arg0.getLongitude())));
-								
+
 				currLat = mapFragment.getMap().getMyLocation().getLatitude();
 				currLong = mapFragment.getMap().getMyLocation().getLongitude();
 
 				oldLat = currLat;
 				oldLong = currLong;
-								
+
 				// Add marker to map here
 				mapFragment.getMap().addMarker(new MarkerOptions()
 				.position(new LatLng(currLat, currLong))
@@ -259,7 +248,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 			else if (ctr >= 2 && mapFragment.getMap().getMyLocation() != null){
 				mapFragment.getMap().moveCamera(CameraUpdateFactory.newLatLng(
 						new LatLng(arg0.getLatitude(), arg0.getLongitude())));
-				
+
 				oldLat = currLat;
 				oldLong = currLong;
 
@@ -351,12 +340,11 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 		mBuilder.setContentTitle("HLT Movement Update");
 		mBuilder.setContentText("You've moved: "+formatter.format(timerDist)+"m in the last while...");
 		mBuilder.setTicker("You haven't moved much lately!");
-		mBuilder.setSmallIcon(R.drawable.hlt);
-		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hltlarge);
+		mBuilder.setSmallIcon(R.drawable.notif_ic);
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.notif_ic);
 		mBuilder.setLargeIcon(bm);
 		mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
-		// FIGURE THESE OUT
-		mBuilder.setSound(null, Notification.DEFAULT_SOUND);
+		mBuilder.setDefaults(Notification.DEFAULT_SOUND);
 
 		// Increase notification number every time a new notification arrives
 		mBuilder.setNumber(++numMessages);
@@ -370,10 +358,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 		// Adds the Intent that starts the Activity to the top of the stack
 		stackBuilder.addNextIntent(resultIntent);
 		PendingIntent resultPendingIntent =
-				stackBuilder.getPendingIntent(
-						0,
-						PendingIntent.FLAG_UPDATE_CURRENT
-						);
+				stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		mBuilder.setContentIntent(resultPendingIntent);
 

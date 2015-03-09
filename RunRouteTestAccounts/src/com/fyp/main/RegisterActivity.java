@@ -39,12 +39,11 @@ public class RegisterActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
 
+		// Enabling Thread Policy to prevent thread related errors that were occurring
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
 		StrictMode.setThreadPolicy(policy);
 
 		// Importing all assets like buttons, text fields
@@ -59,12 +58,11 @@ public class RegisterActivity extends Activity {
 		btnRegister.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View view) {
-
 				String name = inputFullName.getText().toString();
 				String email = inputEmail.getText().toString();
 				String password = inputPassword.getText().toString();
 
-				if (name.isEmpty() || email.isEmpty() || password.isEmpty()){
+				if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
 					registerErrorMsg.setText("Error occured in registration");
 				}
 
@@ -97,7 +95,7 @@ public class RegisterActivity extends Activity {
 
 								// Close Registration Screen
 								finish();
-							}else{
+							} else {
 								// Error in registration
 								registerErrorMsg.setText("Error occured in registration");
 							}
@@ -111,11 +109,9 @@ public class RegisterActivity extends Activity {
 
 		// Link to Login Screen
 		btnLinkToLogin.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View view) {
-				Intent i = new Intent(getApplicationContext(),
-						LoginActivity.class);
+				Intent i = new Intent(getApplicationContext(), LoginActivity.class);
 				startActivity(i);
 				// Close Registration View
 				finish();

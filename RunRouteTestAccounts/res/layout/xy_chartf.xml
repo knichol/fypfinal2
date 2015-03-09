@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#F7EAC8"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Buttons Below Add Views"
+            android:textColor="#1FDA9A"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chartf"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="#F7EAC8"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/seriesDist"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.10"
+            android:background="#1FDA9A"
+            android:text="Distance"
+            android:textColor="#F7EAC8"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/seriesSteps"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_weight="0.10"
+            android:background="#1FDA9A"
+            android:text="Glucose"
+            android:textColor="#F7EAC8"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnClr"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.12"
+            android:background="#1FDA9A"
+            android:text="Clear"
+            android:textColor="#F7EAC8"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

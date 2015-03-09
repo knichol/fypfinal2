@@ -40,9 +40,7 @@
             android:value="@integer/google_play_services_version" />
 
         <!-- Opening Animation Activity -->
-        <activity
-            android:name="com.fyp.main.OpenAnim"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.main.OpenAnim" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,136 +49,113 @@
         </activity>
 
         <!-- Login Activity -->
-        <activity
-            android:name="com.fyp.main.LoginActivity"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.main.LoginActivity" >
         </activity>
 
         <!-- Register Activity -->
-        <activity
-            android:name="com.fyp.main.RegisterActivity"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.main.RegisterActivity" >
         </activity>
-        <activity
-            android:name="com.fyp.main.MainActivity"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.main.MainActivity" >
         </activity>
-        <activity
-            android:name="com.fyp.main.FinishScreen"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.main.FinishScreen" >
         </activity>
-        <activity
-            android:name="com.fyp.diabetes.UpdateMetrics"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.diabetes.UpdateMetrics" >
         </activity>
 
         <!-- Main Dashboard Activity -->
-        <activity
-            android:name="com.fyp.main.DashboardActivity"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.main.DashboardActivity" >
         </activity>
 
         <!-- DIABETES: Dashboard -->
-        <activity
-            android:name="com.fyp.diabetes.diadash"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.diabetes.diadash" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.main.DashBoardActivity" />
         </activity>
 
         <!-- DIABETES: User Profile -->
-        <activity
-            android:name="com.fyp.diabetes.prof"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.diabetes.prof" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.diabetes.diadash" />
         </activity>
 
-         <!-- DIABETES: User Profile -->
-        <activity
-            android:name="com.fyp.graphs.XYChartBuilder"
-            android:label="@string/app_name" >
+        <!-- DIABETES: Graphs -->
+        <activity android:name="com.fyp.graphs.XYChartBuilder" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.fitness.diadash" />
+        </activity>
+
+        <!-- DIABETES: Set User Metrics -->
+        <activity android:name="com.fyp.diabetes.setmet" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.diabetes.diadash" />
         </activity>
         
         <!-- DIABETES: Set User Metrics -->
-        <activity
-            android:name="com.fyp.diabetes.setmet"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.diabetes.History" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.diabetes.diadash" />
         </activity>
 
         <!-- FITNESS: Main Dashboard -->
-        <activity
-            android:name="com.fyp.fitness.fitdash"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.fitness.fitdash" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.main.DashboardActivity" />
         </activity>
 
         <!-- FITNESS: Exercise Dashboard -->
-        <activity
-            android:name="com.fyp.fitness.exercise"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.fitness.exercise" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.fitness.fitdash" />
         </activity>
 
         <!-- FITNESS: Distance Exercise -->
-        <activity
-            android:name="com.fyp.fitness.exdist"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.fitness.exdist" >
         </activity>
 
         <!-- FITNESS: Timed Exercise -->
-        <activity
-            android:name="com.fyp.fitness.extimed"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.fitness.extimed" >
+        </activity>
+
+        <!-- FITNESS: Graphs -->
+        <activity android:name="com.fyp.graphs.XYChartBuilderF" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.fitness.exercise" />
         </activity>
 
         <!-- FITNESS: Goals -->
-        <activity
-            android:name="com.fyp.fitgoals.Goal"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.fitgoals.Goal" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.fitness.fitdash" />
         </activity>
-        <activity
-            android:name="com.fyp.fitgoals.AddGoal"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.fitgoals.AddGoal" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.fitgoals.Goal" />
         </activity>
 
         <!-- DIABETES: Reminders -->
-        <activity
-            android:name="com.fyp.reminders.AlarmManagerActivity"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.reminders.AlarmManagerActivity" >
         </activity>
-        <activity
-            android:name="com.fyp.reminders.Reminder"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.reminders.Reminder" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.diabetes.diadash" />
         </activity>
-        <activity
-            android:name="com.fyp.reminders.AddReminder"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.reminders.AddReminder" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.reminders.Reminder" />
         </activity>
-        <activity
-            android:name="com.fyp.reminders.DeleteReminder"
-            android:label="@string/app_name" >
+        <activity android:name="com.fyp.reminders.DeleteReminder" >
         </activity>
 
         <!-- Broadcast receiver -->

@@ -82,12 +82,12 @@ public class DeleteReminder extends Activity{
 		mBuilder.setTicker("HLT: " + msg);
 		
 		// CHANGE THESE ICONS
-		mBuilder.setSmallIcon(R.drawable.ic_launcher);
-		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+		mBuilder.setSmallIcon(R.drawable.notif_ic);
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.notif_ic);
 		mBuilder.setLargeIcon(bm);
 		
 		mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
-		mBuilder.setSound(null, Notification.DEFAULT_SOUND);
+		mBuilder.setDefaults(Notification.DEFAULT_SOUND);
 		mBuilder.setLights(Color.WHITE, 1500, 1000);
 
 		// Increase notification number every time a new notification arrives

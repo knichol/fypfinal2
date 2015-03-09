@@ -24,7 +24,7 @@ public class diadash extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		//Remove title bar
+		//Remove title bar and set layout
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.diahome);
@@ -38,6 +38,7 @@ public class diadash extends Activity {
 		// Finding or creating the database is nonexistent 
 		db = openOrCreateDatabase("MetricsDB", Context.MODE_PRIVATE, null);
 
+		// Checks if current metrics db is empty, forces user entry if it is
 		metricsNull(db);
 
 		// Profile Link Button
@@ -60,26 +61,30 @@ public class diadash extends Activity {
 			}
 		});
 
-		// Metrics History Button
+		// Metrics History Button - SOON TO BE DEPRECATED
 		btnHist.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = " +
-						"'"+userFunction.getUID(getApplicationContext())+"'", null);
-				if(c.getCount()==0) {
-					showMessage("Error", "No records found");
-					return;
-				}
-				StringBuffer buffer = new StringBuffer();
-				while(c.moveToNext()) {
-					buffer.append("Updated on: "+c.getString(8)+"\n");
-					buffer.append("Weight: "+c.getString(2)+"\n");
-					buffer.append("Height: "+c.getString(3)+"\n");
-					buffer.append("Glucose: "+c.getString(4)+"\n");
-					buffer.append("HbA1c: "+c.getString(5)+"\n");
-					buffer.append("BP(sys/dia): "+c.getString(6)+"/"+c.getString(7)+"\n\n");				
-				}
-				showMessage("All Entries", buffer.toString());
+				Intent dia = new Intent(getApplicationContext(), History.class);
+				dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(dia);
+				
+				//				Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = " +
+//						"'"+userFunction.getUID(getApplicationContext())+"'", null);
+//				if(c.getCount()==0) {
+//					showMessage("Error", "No records found");
+//					return;
+//				}
+//				StringBuffer buffer = new StringBuffer();
+//				while(c.moveToNext()) {
+//					buffer.append("Updated on: "+c.getString(10)+"\n");
+//					buffer.append("Weight: "+c.getString(2)+"\n");
+//					buffer.append("Height: "+c.getString(3)+"\n");
+//					buffer.append("Glucose: "+c.getString(4)+"\n");
+//					buffer.append("HbA1c: "+c.getString(5)+"\n");
+//					buffer.append("BP(sys/dia): "+c.getString(6)+"/"+c.getString(7)+"\n\n");				
+//				}
+//				showMessage("All Entries", buffer.toString());
 			}
 		});
 
@@ -114,6 +119,8 @@ public class diadash extends Activity {
 		builder.show();
 	}
 
+	// Function basically creates the metrics table if nonexistent and start the update metrics
+	// Activity, also notifies that activity that the db is empty
 	public void metricsNull(SQLiteDatabase db) {
 		db.execSQL("CREATE TABLE IF NOT EXISTS user_metrics ("
 				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 			
@@ -131,6 +138,8 @@ public class diadash extends Activity {
 		// Checking currently logged in users metrics
 		Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = "+
 				"'"+userFunction.getUID(getApplicationContext())+"'", null);
+
+		// If query returns no results
 		if(c.getCount()==0) {
 			Intent dia = new Intent(getApplicationContext(), setmet.class);
 			dia.putExtra("metNull", 1);

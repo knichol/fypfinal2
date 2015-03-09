@@ -24,7 +24,7 @@ public class prof extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		//Remove title bar
+		//Remove title bar and set layout
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.curr_metrics);
@@ -33,7 +33,7 @@ public class prof extends Activity {
 		String s =  userFunction.getName(getApplicationContext());
 		String ns = s.replaceAll(" .*", "");
 
-		// Sets textview to show welcome message plus users name
+		// Sets textview to show welcome message plus users first name
 		welcome = (TextView)findViewById(R.id.WelcCurr);
 		welcome.setText("Welcome " + ns);
 
@@ -65,6 +65,8 @@ public class prof extends Activity {
 		// Checking currently logged in users metrics
 		Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = "+
 				"'"+userFunction.getUID(getApplicationContext())+"'", null);
+		
+		// If local db is null, force user to update metrics
 		if(c.getCount()==0) {
 			Intent dia = new Intent(getApplicationContext(), setmet.class);
 			dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -72,6 +74,7 @@ public class prof extends Activity {
 			finish();
 		}
 
+		// Populating the textviews with the relevant db contents
 		if(c.moveToLast()) {				
 			height.setText(c.getString(3).toString());
 			weight.setText(c.getString(2).toString());
@@ -79,7 +82,7 @@ public class prof extends Activity {
 			A1c.setText(c.getString(5).toString());
 			BPsys.setText(c.getString(6).toString());
 			BPdia.setText(c.getString(7).toString());
-			updated.setText(c.getString(8).toString());
+			updated.setText(c.getString(10).toString());
 		}
 
 		// Update Metrics Button

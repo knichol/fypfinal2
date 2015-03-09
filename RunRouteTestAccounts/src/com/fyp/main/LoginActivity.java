@@ -18,8 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 public class LoginActivity extends Activity {
+
 	Button btnLogin;
 	Button btnLinkToRegister;
 	EditText inputEmail;
@@ -39,21 +39,19 @@ public class LoginActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
 		StrictMode.setThreadPolicy(policy);
 
 		// Importing all assets like buttons, text fields
 		inputEmail = (EditText) findViewById(R.id.loginEmail);
 		inputPassword = (EditText) findViewById(R.id.loginPassword);
-		
+
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
-		
+
 		loginErrorMsg = (TextView) findViewById(R.id.login_error);
 
 		// Login button Click Event
@@ -92,7 +90,7 @@ public class LoginActivity extends Activity {
 
 							// Close Login Screen
 							finish();
-						}else{
+						} else {
 							// Error in login
 							loginErrorMsg.setText("Incorrect username/password");
 						}
@@ -105,11 +103,9 @@ public class LoginActivity extends Activity {
 
 		// Link to Register Screen
 		btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View view) {
-				Intent i = new Intent(getApplicationContext(),
-						RegisterActivity.class);
+				Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
 				startActivity(i);
 				finish();
 			}

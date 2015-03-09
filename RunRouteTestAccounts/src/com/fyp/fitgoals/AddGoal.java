@@ -1,6 +1,5 @@
 package com.fyp.fitgoals;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,35 +27,36 @@ public class AddGoal extends Activity {
 
 	EditText goalDesc, goalValue;
 	Button btnAdd, btnBack, btnType;
+
 	SQLiteDatabase db;
 	TimePicker timePicker;
 	UserFunctions userFunction = new UserFunctions();
+
 	AlertDialog levelDialog;
 	String type;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		//Remove title bar
+		//Remove title bar and set layout
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.goal_add);
 
 		// Enable permissions to post to db
-		if (android.os.Build.VERSION.SDK_INT > 9)
-		{
+		if (android.os.Build.VERSION.SDK_INT > 9) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 		}
 
+		// Assigning buttons etc.
 		goalDesc = (EditText)findViewById(R.id.addGoalDesc);		
 		goalValue = (EditText)findViewById(R.id.addGoalValue);
-
 
 		btnAdd = (Button)findViewById(R.id.btnAddNewGoal);
 		btnBack = (Button)findViewById(R.id.btnAddNewGoalCancel);		
 		btnType = (Button)findViewById(R.id.btnAddNewGoalType);
 
+		// Creating db if nonexistent
 		db = openOrCreateDatabase("GoalsDB", Context.MODE_PRIVATE, null);
 		db.execSQL("CREATE TABLE IF NOT EXISTS user_goals ("
 				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 			
@@ -68,13 +68,16 @@ public class AddGoal extends Activity {
 				+ "completed INTEGER,"
 				+ "created_on TEXT)");
 
-		// Goal Type Button
+		// Goal Type Button - Uses a switch to determine which type of goal the user is creating
 		btnType.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				// Strings to Show In Dialog with Radio Buttons
-				//CharSequence[] items = {" Exercise Time "," Distance "," Steps Taken "," Weight Loss "};
 				CharSequence[] items = {" Exercise Time "," Distance "," Weight Loss "};
+
+				// Previously in use, may use in future
+				// CharSequence[] items = {" Exercise Time "," Distance "," Steps Taken "," Weight Loss "};
+
 				// Creating and Building the Dialog 
 				AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
 				builder.setTitle("Select Goal Type");
@@ -92,11 +95,12 @@ public class AddGoal extends Activity {
 							btnType.setText("Distance");
 							goalDesc.requestFocus();
 							break;
-							//						case 2:
-							//							type = "step";
-							//							btnType.setText("Steps Taken");
-							//							goalDesc.requestFocus();
-							//							break;			
+							// Previously used function, may use in future
+							//case 2:
+							//	type = "step";
+							//	btnType.setText("Steps Taken");
+							//	goalDesc.requestFocus();
+							//	break;			
 						case 2:
 							type = "weight";
 							btnType.setText("Weight Loss");
@@ -111,10 +115,11 @@ public class AddGoal extends Activity {
 			}
 		});
 
-
+		// Add Goal Button - 
 		btnAdd.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				// Pulling info from the datepicker and putting it in a string
 				DatePicker datePicker = (DatePicker) findViewById(R.id.addGoalDate);
 				String day = String.valueOf(datePicker.getDayOfMonth());
 				String month = String.valueOf(datePicker.getMonth() + 1);
@@ -124,15 +129,20 @@ public class AddGoal extends Activity {
 				Date now = new Date();
 				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
+				// Checking if there is a currently active internet connection
 				if(checkInternet(getApplicationContext())) {
-					userFunction.postGoal(userFunction.getUID(getApplicationContext()), goalDesc.getText().toString(), type, 
-							goalValue.getText().toString(), date, "No");
+					// Posting goal to online db 
+					userFunction.postGoal(userFunction.getUID(getApplicationContext()), 
+							goalDesc.getText().toString(), type, goalValue.getText().toString(),
+							date, "No");
 				}
 
+				// Posting goal to local db
 				db.execSQL("INSERT INTO user_goals (user_id, goal_desc, type, value, complete_by, completed, created_on) " +
 						"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+goalDesc.getText()+
 						"','"+type+"','"+goalValue.getText()+"','"+date+"','"+0+"','"+dateFormat.format(now).toString()+"');");
 
+				// Returning to Goal list
 				Intent i = new Intent(getApplicationContext(), Goal.class);
 				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(i);
@@ -141,6 +151,7 @@ public class AddGoal extends Activity {
 
 		});
 
+		// Back Button - Returns to Goal list
 		btnBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -150,17 +161,18 @@ public class AddGoal extends Activity {
 				finish();
 			}
 		});
-
 	}	
 
+	// This function checks if there is an active internet connection
 	public boolean checkInternet(Context context) {
 		ConnectivityManager conn = (ConnectivityManager) 
 				context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
 		NetworkInfo wifi = conn.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		NetworkInfo mobile = conn.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
 		// Check if wifi or mobile network is available or not. If any of them is
 		// available or connected then it will return true, otherwise false;
 		return wifi.isConnected() || mobile.isConnected();
 	}
-
 }

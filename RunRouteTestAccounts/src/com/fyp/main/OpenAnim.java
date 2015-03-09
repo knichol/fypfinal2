@@ -21,9 +21,7 @@ public class OpenAnim extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.openpage);
 
 		// Creating 2 AnimationSets
@@ -34,7 +32,7 @@ public class OpenAnim extends Activity {
 		TextView text1 = (TextView)findViewById(R.id.WelcCurr);
 
 
-		// Animations
+		// Assigning the animations
 		Animation anim1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.animation_zoom_out);
 		Animation anim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.animation_fade_out);
 		Animation animText = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.animation_fade_in);
@@ -55,7 +53,6 @@ public class OpenAnim extends Activity {
 		new CountDownTimer(3500, 3500) {
 			@Override
 			public void onTick(long millisUntilFinished) {}
-
 			@Override
 			public void onFinish() {
 				if (skipped == false){
@@ -94,7 +91,6 @@ public class OpenAnim extends Activity {
 				finish();
 			}
 		});
-
 
 	}
 }

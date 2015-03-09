@@ -1,3 +1,7 @@
+/*
+ * 	This class isn't being used anymore, just keeping for reference purposes
+ */
+
 package com.fyp.diabetes;
 
 import java.text.DateFormat;
@@ -22,13 +26,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class UpdateMetrics extends Activity implements OnClickListener
-{
+public class UpdateMetrics extends Activity implements OnClickListener {
+
 	EditText editWeight, editHeigth, editGlucose, editA1c, editBPsys, editBPdia;
 	Button btnAdd,btnDelete,btnModify,btnView,btnViewAll,btnShowInfo,btnDashboard;
 	SQLiteDatabase db;
 	UserFunctions userFunction = new UserFunctions();
-	
 
 	/** Called when the activity is first created. */
 	@Override
@@ -37,12 +40,11 @@ public class UpdateMetrics extends Activity implements OnClickListener
 		setContentView(R.layout.metrics);
 
 		// Enable permissions to post to db
-        if (android.os.Build.VERSION.SDK_INT > 9)
-        {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-		
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+		}
+
 		editWeight = (EditText)findViewById(R.id.editWeight);
 		editHeigth = (EditText)findViewById(R.id.editHeigth);
 		editGlucose = (EditText)findViewById(R.id.editGlucose);
@@ -120,13 +122,13 @@ public class UpdateMetrics extends Activity implements OnClickListener
 			Date date = new Date();
 			//System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
 			UserFunctions userFunction = new UserFunctions();
-			
-//			userFunction.postMetrics(userFunction.getUID(getApplicationContext()), 
-//					editWeight.getText().toString(), editHeigth.getText().toString(), 
-//					editGlucose.getText().toString(), editA1c.getText().toString(), 
-//					editBPsys.getText().toString(), editBPdia.getText().toString());
-//			
-			
+
+			//			userFunction.postMetrics(userFunction.getUID(getApplicationContext()), 
+			//					editWeight.getText().toString(), editHeigth.getText().toString(), 
+			//					editGlucose.getText().toString(), editA1c.getText().toString(), 
+			//					editBPsys.getText().toString(), editBPdia.getText().toString());
+			//			
+
 			db.execSQL("INSERT INTO user_metrics (user_id, weight, height, glucose, hba1c, BPsys, BPdia, created_on) " +
 					"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+editWeight.getText()+"','"+editHeigth.getText()+
 					"','"+editGlucose.getText()+"','"+editA1c.getText()+"','"+editBPsys.getText()+
@@ -134,8 +136,8 @@ public class UpdateMetrics extends Activity implements OnClickListener
 
 			showMessage("Success", "Record added");
 			clearText();
-			
-				
+
+
 		}
 
 		// Delete command

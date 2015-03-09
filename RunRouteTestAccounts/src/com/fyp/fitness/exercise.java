@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.androidgpsexample.R;
+import com.fyp.graphs.XYChartBuilderF;
 import com.fyp.main.MainActivity;
 
 public class exercise extends Activity {
@@ -56,6 +57,16 @@ public class exercise extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				timedDialog();
+			}
+		});
+		
+		// Timed Exercise button
+		btnGraph.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Intent dia = new Intent(getApplicationContext(), XYChartBuilderF.class);
+				dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(dia);
 			}
 		});
 

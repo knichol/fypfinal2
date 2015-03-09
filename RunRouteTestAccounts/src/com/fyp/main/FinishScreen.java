@@ -27,18 +27,17 @@ public class FinishScreen extends Activity {
 	private static String timePush = null;
 	private static String stepsPush = null;
 	private static String type;
-	
+
 	TextView distView, timeView, stepsView, typeView;
 	String fdist, fsteps, ftime;
 
 	SQLiteDatabase db;
 	UserFunctions userFunction = new UserFunctions();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.post_run);
 
@@ -64,7 +63,7 @@ public class FinishScreen extends Activity {
 			runTime2 = extras.getLong("time");
 			type = extras.getString("type");
 		}
-		
+
 		distancePush = String.format("%.2f", dist);
 
 		int steps = (int) (dist/0.762);
@@ -91,14 +90,14 @@ public class FinishScreen extends Activity {
 		fdist = String.format("%.2f", dist) + dType;
 		ftime = time;
 		fsteps = String.valueOf(steps);
-		
+
 		distView.setText(String.format("%.2f", dist) + dType);
 		timeView.setText(time);
 		stepsView.setText(String.valueOf(steps));
 		typeView.setText(type);
 
 		db = openOrCreateDatabase("android_api", Context.MODE_PRIVATE, null);
-		
+
 		// Return to run screen
 		Button btn = (Button) findViewById(R.id.clickToRun);
 		btn.setOnClickListener(new View.OnClickListener() {
@@ -117,10 +116,10 @@ public class FinishScreen extends Activity {
 			@Override
 			public void onClick(View view) {
 				String id = userFunction.getUID(getApplicationContext());
-				
+
 				// Update this here
 				JSONObject json = userFunction.postNew(id, type.toString(), distancePush, timePush, stepsPush);
-				
+
 				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 				Date date = new Date();
 
@@ -128,7 +127,7 @@ public class FinishScreen extends Activity {
 						"VALUES('"+userFunction.getUID(getApplicationContext())+"','"
 						+fdist+"','"+ftime+"','"+fsteps+"','"+type.toString()+"','"+dateFormat.format(date).toString()+"');");
 				db.close();
-				
+
 				Intent i = new Intent(getApplicationContext(), fitdash.class);
 				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(i);

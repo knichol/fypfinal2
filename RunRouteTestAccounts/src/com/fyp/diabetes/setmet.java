@@ -33,20 +33,20 @@ public class setmet extends Activity {
 	SQLiteDatabase db;
 	UserFunctions userFunction = new UserFunctions();
 	AlertDialog levelDialog;
+
+	// Set these string null due to value not passing through correctly
 	String sex = "";
 	String age = "";
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		//Remove title bar
+		//Remove title bar and set layout
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.upd_metrics);
 
-		// If coming from AddReminder
+		// If no previous entries are found in local db
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			int nullMets = extras.getInt("metNull");
@@ -64,12 +64,12 @@ public class setmet extends Activity {
 		}  
 
 		// Enable permissions to post to db
-		if (android.os.Build.VERSION.SDK_INT > 9)
-		{
+		if (android.os.Build.VERSION.SDK_INT > 9) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 		}
 
+		// Assigning all textviews and buttons
 		height = (TextView)findViewById(R.id.complete_by);
 		gender =  (TextView)findViewById(R.id.tvGender);
 
@@ -84,6 +84,7 @@ public class setmet extends Activity {
 		btnCancel = (Button)findViewById(R.id.btnUpdMetCancel);
 		btnSex = (Button)findViewById(R.id.btnSex);
 
+		// Creating db if nonexistent
 		db = openOrCreateDatabase("MetricsDB", Context.MODE_PRIVATE, null);
 		db.execSQL("CREATE TABLE IF NOT EXISTS user_metrics ("
 				+ "id INTEGER PRIMARY KEY AUTOINCREMENT," 			
@@ -98,22 +99,21 @@ public class setmet extends Activity {
 				+ "birth_year TEXT,"
 				+ "created_on TEXT)");
 
-		Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = " +
+		Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = "+
 				"'"+userFunction.getUID(getApplicationContext())+"'", null);
 
+		// Hide unnecessary textviews and buttons
 		if(c.moveToLast()){
 			if(c.getString(3).toString().length()>1){
-				// Hide textview and input box
 				height.setVisibility(android.view.View.GONE);
 				editHeigth.setVisibility(android.view.View.GONE);
 			}
 			if(c.getString(8).toString().length()>1){
-				// Hide textview and input box
 				gender.setVisibility(android.view.View.GONE);
 				btnSex.setVisibility(android.view.View.GONE);
 			}
 		}
-	
+
 
 		// Goal Type Button
 		btnSex.setOnClickListener(new View.OnClickListener() {
@@ -146,17 +146,18 @@ public class setmet extends Activity {
 			}
 		});
 
-
 		btnAdd.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if(view == btnAdd) {
-					Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = " +
+					boolean errorCall = false;
+
+					Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = "+
 							"'"+userFunction.getUID(getApplicationContext())+"'", null);
 
 					ArrayList<String> list = new ArrayList<String>();
-					boolean errorCall = false;
 
+					// Add previous db entry to list
 					if(c.moveToLast()){
 						list.add(c.getString(2));
 						list.add(c.getString(3));
@@ -168,6 +169,8 @@ public class setmet extends Activity {
 						list.add(c.getString(9));
 					}
 
+					// These if statements basically echo the previous db entry if
+					// any field in most recent entry is empty 
 					if(editWeight.getText().toString().trim().length()==0){
 						errorCall = true;
 						editWeight.setText(list.get(0).toString());
@@ -198,29 +201,30 @@ public class setmet extends Activity {
 						age = list.get(7);
 					}
 
+					// Notifying user to the above if statements if called
 					if (errorCall == true)
 						showMessage("Warning!", "Empty Fields, using old values");
 
 					DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 					Date date = new Date();
 
-					UserFunctions userFunction = new UserFunctions();
-
-					// ****Add in age and sex here****
+					// Posting user metrics online
 					userFunction.postMetrics(userFunction.getUID(getApplicationContext()), 
 							editWeight.getText().toString(), editHeigth.getText().toString(), 
 							editGlucose.getText().toString(), editA1c.getText().toString(), 
 							editBPsys.getText().toString(), editBPdia.getText().toString(),
 							sex.toString(),age.toString());
 
+					// Posting user metrics locally
 					db.execSQL("INSERT INTO user_metrics (user_id, weight, height, glucose, hba1c, BPsys, BPdia, sex, birth_year, created_on) " +
 							"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+editWeight.getText()+"','"+editHeigth.getText()+
 							"','"+editGlucose.getText()+"','"+editA1c.getText()+"','"+editBPsys.getText()+
 							"','"+editBPdia.getText()+"','"+sex.toString()+"','"+age.toString()+"','"+dateFormat.format(date).toString()+"');");
 
 					showMessage("Success", "Record added");
-					//clearText();
-					
+					clearText();
+
+					// Add a short delay before sending back to  diabetes dashboard
 					new CountDownTimer(1500, 1500) {
 						@Override
 						public void onTick(long millisUntilFinished) {}
@@ -232,13 +236,13 @@ public class setmet extends Activity {
 							finish();
 						}
 					}.start();
-					
+
 				}
 			}
 		});
 
 
-		// Update Metrics Button
+		// Cancel Button - returns to dash
 		btnCancel.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -250,18 +254,18 @@ public class setmet extends Activity {
 		});
 
 	}
-	
+
 	// Age dialog pop-up
 	protected void ageDialog() {
-		// get prompts.xml view
+		// Get age_dialog.xml view
 		LayoutInflater layoutInflater = LayoutInflater.from(setmet.this);
 		View promptView = layoutInflater.inflate(R.layout.age_dialog, null);
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(setmet.this);
 		alertDialogBuilder.setView(promptView);
 
 		final EditText editText = (EditText) promptView.findViewById(R.id.editAge);
-		
-		// setup a dialog window
+
+		// Setup a dialog window to read in the users year of birth
 		alertDialogBuilder
 		.setCancelable(false)
 		.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
@@ -280,12 +284,12 @@ public class setmet extends Activity {
 			}
 		});
 
-		// create an alert dialog
+		// Create an alert dialog
 		AlertDialog alert = alertDialogBuilder.create();
 		alert.show();
 	}
 
-	// Display message
+	// Display popup message
 	public void showMessage(String title,String message) {
 		Builder builder=new Builder(this);
 		builder.setCancelable(true);

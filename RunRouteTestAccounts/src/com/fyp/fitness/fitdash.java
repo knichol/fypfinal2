@@ -46,6 +46,5 @@ public class fitdash extends Activity{
 			}
 		});
 
-
 	}
 }
