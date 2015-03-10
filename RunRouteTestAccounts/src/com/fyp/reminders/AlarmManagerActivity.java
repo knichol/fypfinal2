@@ -18,7 +18,8 @@ public class AlarmManagerActivity extends Activity {
 	private AlarmManagerBroadcastReceiver alarm;
 
 	Button btnRepeat, btnCancel, btnOne, btnRemind;
-	Long timeMS, repeat;
+	long timeMS; 
+	long repeat = 0;
 	int remindID;
 	boolean repchk = false;
 	SQLiteDatabase db;
@@ -41,31 +42,33 @@ public class AlarmManagerActivity extends Activity {
 
 
 		// This code is causing big problems
-		//		// Repeated reminders
-		//		if (repeat != null){
-		//			// do stuff
-		//			Log.d("repeat", "not null");
-		//			// Starting single reminders timer
-		//			alarm.repeatTimer(getBaseContext(), timeMS, remindID, repeat);
-		//			Log.d("Reminder", "sent");
-		//
-		//			// Sending back to diabetes dash
-		//			Intent dia = new Intent(getApplicationContext(), diadash.class);
-		//			dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-		//			startActivity(dia);
-		//			setContentView(R.layout.diahome);
-		//		}
+		// Repeated reminders
+		if (repeat != 0){
+			// do stuff
+			Log.d("Repeat Reminder", "Sent");
+			// Starting single reminders timer
+			alarm.repeatTimer(getBaseContext(), timeMS, remindID, repeat);
+			Log.d("Repeat Reminder", String.valueOf(repeat));
 
-		// Starting single reminders timer
-		alarm.remindTimer(getBaseContext(), timeMS, remindID);
-		Log.d("Reminder", "sent");
+			// Sending back to diabetes dash
+			Intent dia = new Intent(getApplicationContext(), diadash.class);
+			dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(dia);
+			setContentView(R.layout.diahome);
+		}
 
-		// Sending back to diabetes dash
-		Intent dia = new Intent(getApplicationContext(), diadash.class);
-		dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-		startActivity(dia);
-		setContentView(R.layout.diahome);
+		else if (repeat == 0) {
+			// Starting single reminders timer
+			alarm.remindTimer(getBaseContext(), timeMS, remindID);
+			Log.d("Single Reminder Timer", "sent");
 
+			// Sending back to diabetes dash
+			Intent dia = new Intent(getApplicationContext(), diadash.class);
+			dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(dia);
+			setContentView(R.layout.diahome);
+		}
+		
 		// Everything below this not being used
 		//		btnRepeat= (Button) findViewById(R.id.btStart);
 		//		btnCancel = (Button) findViewById(R.id.btCancel);

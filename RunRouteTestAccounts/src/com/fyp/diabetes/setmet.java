@@ -18,6 +18,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -33,10 +34,13 @@ public class setmet extends Activity {
 	SQLiteDatabase db;
 	UserFunctions userFunction = new UserFunctions();
 	AlertDialog levelDialog;
+	int nullMets;
 
 	// Set these string null due to value not passing through correctly
 	String sex = "";
 	String age = "";
+
+	float chkWeight, chkGluc, chkA1c, chkBPs, chkBPd;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -49,7 +53,7 @@ public class setmet extends Activity {
 		// If no previous entries are found in local db
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			int nullMets = extras.getInt("metNull");
+			nullMets = extras.getInt("metNull");
 			if(nullMets == 1){
 				showMessage("No Records Found", "Please enter values!");
 				new CountDownTimer(2000, 2000) {
@@ -113,7 +117,6 @@ public class setmet extends Activity {
 				btnSex.setVisibility(android.view.View.GONE);
 			}
 		}
-
 
 		// Goal Type Button
 		btnSex.setOnClickListener(new View.OnClickListener() {
@@ -201,9 +204,16 @@ public class setmet extends Activity {
 						age = list.get(7);
 					}
 
-					// Notifying user to the above if statements if called
-					if (errorCall == true)
-						showMessage("Warning!", "Empty Fields, using old values");
+					chkWeight = Float.parseFloat(editWeight.getText().toString());
+					chkGluc = Float.parseFloat(editGlucose.getText().toString());
+					chkA1c = Float.parseFloat(editA1c.getText().toString());
+					chkBPs = Float.parseFloat(editBPsys.getText().toString());
+					chkBPd = Float.parseFloat(editBPdia.getText().toString());
+
+//					// Might ignore this function, ends up spamming a lot
+//					// Notifying user to the above if statements if called
+//					if (errorCall == true)
+//						showMessage("Warning!", "Empty Fields, using old values");
 
 					DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 					Date date = new Date();
@@ -213,7 +223,7 @@ public class setmet extends Activity {
 							editWeight.getText().toString(), editHeigth.getText().toString(), 
 							editGlucose.getText().toString(), editA1c.getText().toString(), 
 							editBPsys.getText().toString(), editBPdia.getText().toString(),
-							sex.toString(),age.toString());
+							sex.toString(), age.toString());
 
 					// Posting user metrics locally
 					db.execSQL("INSERT INTO user_metrics (user_id, weight, height, glucose, hba1c, BPsys, BPdia, sex, birth_year, created_on) " +
@@ -224,18 +234,62 @@ public class setmet extends Activity {
 					showMessage("Success", "Record added");
 					clearText();
 
+					if(nullMets != 1) {
+						// Weight checks and warnings
+						if(Float.parseFloat(list.get(0).toString()) == chkWeight)
+							Log.d("Weight","same");
+						else if(Float.parseFloat(list.get(0).toString()) > chkWeight - 2)
+							showMessage("Weight Warning!", "Weight loss of over 2kg per week can be dangerous!");
+						else if(Float.parseFloat(list.get(0).toString()) < chkWeight + 2)
+							showMessage("Weight Warning!", "Weight gain of over 2kg per week can be dangerous!");
+						
+						
+						// Glucose checks and warnings
+						if(chkGluc < 50)
+							showMessage("Glucose Warning!", "Your Glucose level is: "+chkGluc+
+									"mg/Dl which means you may be hypoglycemic!");
+						if(chkGluc >= 150)
+							showMessage("Glucose Warning!", "Your Glucose level is: "+chkGluc+
+									" mg/Dl which means you may be hyperglycemic!");
+
+						// A1c checks and warnings
+						if(chkA1c < 4)
+							showMessage("HbA1c Warning!", "Your HbA1c level is: "+chkA1c+
+									"% mmol/mol which means you may be hypoglycemic!");
+						if(chkGluc >= 7)
+							showMessage("HbA1c Warning!", "Your HbA1c level is: "+chkA1c+
+									"% mmol/mol which means you may be hyperglycemic!");
+
+						// Blood Pressure checks and warnings
+						if(chkBPs < 90 && chkBPd < 60)
+							showMessage("Blood Pressure Warning!", "Your Blood Pressure is: "+chkBPs+"/"+chkBPd+
+									" which means you have low blood pressure!");
+
+						if(chkBPs >= 120 && chkBPs < 140 && chkBPd < 90 && chkBPd >= 80)
+							showMessage("Blood Pressure Warning!", "Your Blood Pressure is: "+chkBPs+"/"+chkBPd+
+									" which means you are suffering from Prehypertension!");
+
+						if(chkBPs >= 140 && chkBPs < 180 && chkBPd < 110 && chkBPd >= 90)
+							showMessage("Blood Pressure Warning!", "Your Blood Pressure is: "+chkBPs+"/"+chkBPd+
+									" which means you have High Blood Pressure and are suffering from Hypertension!");
+
+						if(chkBPs >= 180 && chkBPd >= 110)
+							showMessage("Blood Pressure Warning!", "Your Blood Pressure is: "+chkBPs+"/"+chkBPd+
+									" which means you have gone Hypertensive. Please seek immediate medical advice!");
+					}
+					
 					// Add a short delay before sending back to  diabetes dashboard
-					new CountDownTimer(1500, 1500) {
-						@Override
-						public void onTick(long millisUntilFinished) {}
-						@Override
-						public void onFinish() {
-							Intent dia = new Intent(getApplicationContext(), diadash.class);
-							dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-							startActivity(dia);
-							finish();
-						}
-					}.start();
+					//					new CountDownTimer(2000, 2000) {
+					//						@Override
+					//						public void onTick(long millisUntilFinished) {}
+					//						@Override
+					//						public void onFinish() {
+					//							Intent dia = new Intent(getApplicationContext(), diadash.class);
+					//							dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+					//							startActivity(dia);
+					//							finish();
+					//						}
+					//					}.start();
 
 				}
 			}

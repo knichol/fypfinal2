@@ -6,17 +6,28 @@ import com.fyp.diabetes.diadash;
 import com.fyp.library.UserFunctions;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,7 +45,7 @@ public class Reminder extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.remind_view);
 
-		ArrayList<UserRecord> users = new ArrayList<UserRecord>();
+		final ArrayList<UserRecord> users = new ArrayList<UserRecord>();
 		UserRecord user;
 
 		btnAdd = (Button)findViewById(R.id.btnLinkNewReminder);
@@ -50,16 +61,16 @@ public class Reminder extends Activity {
 				+ "ms_until INTEGER,"
 				+ "remindID INTEGER,"
 				+ "created_on TEXT)");
-		
+
 		Cursor c = db.rawQuery("SELECT * FROM user_reminder WHERE user_id = "+
 				"'"+userFunction.getUID(getApplicationContext())+"'", null);
 
 		while(c.moveToNext()) {
-			user = new UserRecord(c.getString(2), c.getString(3) +" on " + c.getString(4));
+			user = new UserRecord(c.getString(2), c.getString(3) +" on " + c.getString(4), c.getString(6));
 			users.add(user);
 		}
 
-		ListView listView = (ListView) findViewById(R.id.ListViewReminder);
+		final ListView listView = (ListView) findViewById(R.id.ListViewReminder);
 		listView.setAdapter(new UserItemAdapter(this, android.R.layout.simple_list_item_1, users));
 
 		btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +93,56 @@ public class Reminder extends Activity {
 			}
 		});
 
+		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position, long arg3) {
+
+				AlertDialog.Builder alert = new AlertDialog.Builder(Reminder.this);
+
+				alert.setMessage("Do you want delete this Reminder?");
+				alert.setPositiveButton("Yes please!", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// Code to remove from list
+						String uid = users.get(position).id;
+						ListAdapter la = listView.getAdapter();
+						((ArrayAdapter<UserRecord>)la).notifyDataSetChanged(); 
+						Cursor c = db.rawQuery("SELECT * FROM user_reminder", null);
+						while(c.moveToNext())	{
+							String id = c.getString(6);
+							int rID = Integer.parseInt(c.getString(6));
+							if(uid.contentEquals(id)){
+								db.execSQL("DELETE FROM user_reminder WHERE remindID = '"+uid+"'");
+								users.remove(position);
+
+								Intent intent = new Intent(getApplicationContext(), 
+										AlarmManagerBroadcastReceiver.class);
+								intent.setData(Uri.parse("custom://" + rID));
+								intent.setAction(String.valueOf(rID));
+								
+								PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 
+										rID, intent, 0);
+								AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+								alarmManager.cancel(pendingIntent);
+
+								Log.d("Success", "Record Deleted "+String.valueOf(uid));
+							}
+						}
+					}
+				});
+
+				alert.setNegativeButton("No thanks!", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				});
+
+				alert.show();
+				return true;
+			}
+		});
 	}
 
 	public class UserItemAdapter extends ArrayAdapter<UserRecord> {
@@ -115,16 +176,19 @@ public class Reminder extends Activity {
 			}
 			return v;
 		}
+
 	}
 
 	public class UserRecord {
 
 		public String message;
 		public String datetime;
+		public String id;
 
-		public UserRecord(String message, String datetime) {
+		public UserRecord(String message, String datetime, String id) {
 			this.message = message;
 			this.datetime = datetime;
+			this.id = id;
 		}
 	}
 }

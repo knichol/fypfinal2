@@ -24,11 +24,12 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 public class DeleteReminder extends Activity{
-	
+
 	int rID;
+	long rep = 0;
 	SQLiteDatabase db;
 	UserFunctions userFunction = new UserFunctions();
-	
+
 	private NotificationManager mNotificationManager;
 	private int notificationID = 100;
 	private int numMessages = 0;
@@ -40,37 +41,60 @@ public class DeleteReminder extends Activity{
 		super.onCreate(savedInstanceState);
 
 		// Enable permissions to interact with db
-		if (android.os.Build.VERSION.SDK_INT > 9)
-		{
+		if (android.os.Build.VERSION.SDK_INT > 9) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 		}
 
 		Bundle extras = getIntent().getExtras();
-		
+
 		if(extras != null) {
 			rID = extras.getInt("rID");
+			rep = extras.getLong("rep");
+		}
+
+		if(rep != 0) {
+			db = openOrCreateDatabase("RemindersDB", Context.MODE_PRIVATE, null);
+			
+			Cursor c = db.rawQuery("SELECT * FROM user_reminder WHERE remindID = '"+rID+"'", null);
+			if(c.moveToFirst())	{
+				msg = c.getString(2);
+				displayNotification(msg);
+				Log.d("Repeat Reminder", String.valueOf(rID));
+			}
+			else {
+				Log.d("Error", "Invalid Rollno "+ String.valueOf(rID));
+			}
+
+			Intent i = new Intent(getApplicationContext(), Reminder.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(i);
+			finish();
 		}
 		
-		db = openOrCreateDatabase("RemindersDB", Context.MODE_PRIVATE, null);
-		Log.d("rID to delete", String.valueOf(rID));
-		
-		Cursor c = db.rawQuery("SELECT * FROM user_reminder WHERE remindID = '"+rID+"'", null);
-		if(c.moveToFirst())	{
-			msg = c.getString(2);
-			displayNotification(msg);
-			db.execSQL("DELETE FROM user_reminder WHERE remindID = '"+rID+"'");
-			Log.d("Success", "Record Deleted");
+		if(rep == 0) {
+			Log.d("Single Reminder", String.valueOf(rID));
+			db = openOrCreateDatabase("RemindersDB", Context.MODE_PRIVATE, null);
+			Log.d("rID to delete", String.valueOf(rID));
+
+			Cursor c = db.rawQuery("SELECT * FROM user_reminder WHERE remindID = '"+rID+"'", null);
+			if(c.moveToFirst())	{
+				msg = c.getString(2);
+				displayNotification(msg);
+				db.execSQL("DELETE FROM user_reminder WHERE remindID = '"+rID+"'");
+				Log.d("Success", "Record Deleted");
+			}
+			else {
+				Log.d("Error", "Invalid Rollno "+ String.valueOf(rID));
+			}
+
+			Intent i = new Intent(getApplicationContext(), Reminder.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(i);
+			finish();
 		}
-		else {
-			Log.d("Error", "Invalid Rollno");
-		}
-		
-		Intent i = new Intent(getApplicationContext(), Reminder.class);
-		startActivity(i);
-		finish();
 	}
-	
+
 	protected void displayNotification(String msg) {
 		Log.d("Remind notif", "from DeleteReminder");
 
@@ -80,12 +104,12 @@ public class DeleteReminder extends Activity{
 		mBuilder.setContentTitle("HLT Reminder!");
 		mBuilder.setContentText("Your Message: " + msg);
 		mBuilder.setTicker("HLT: " + msg);
-		
+
 		// CHANGE THESE ICONS
 		mBuilder.setSmallIcon(R.drawable.notif_ic);
 		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.notif_ic);
 		mBuilder.setLargeIcon(bm);
-		
+
 		mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
 		mBuilder.setDefaults(Notification.DEFAULT_SOUND);
 		mBuilder.setLights(Color.WHITE, 1500, 1000);
@@ -111,5 +135,5 @@ public class DeleteReminder extends Activity{
 		// notificationID allows you to update the notification later on
 		mNotificationManager.notify(notificationID, mBuilder.build());
 	}
-	
+
 }

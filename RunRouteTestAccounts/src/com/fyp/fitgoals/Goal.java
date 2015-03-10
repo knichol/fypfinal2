@@ -4,21 +4,34 @@ import java.util.ArrayList;
 import com.example.androidgpsexample.R;
 import com.fyp.fitness.fitdash;
 import com.fyp.library.UserFunctions;
+import com.fyp.reminders.AlarmManagerBroadcastReceiver;
+import com.fyp.reminders.Reminder;
+import com.fyp.reminders.Reminder.UserRecord;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 public class Goal extends Activity {
 
@@ -37,7 +50,7 @@ public class Goal extends Activity {
 		setContentView(R.layout.goal_view);
 
 		// Creating a list of user records to populate the goal list
-		ArrayList<UserRecord> users = new ArrayList<UserRecord>();
+		final ArrayList<UserRecord> users = new ArrayList<UserRecord>();
 		UserRecord user;
 
 		// Assigning buttons
@@ -54,6 +67,7 @@ public class Goal extends Activity {
 				+ "value INTEGER,"
 				+ "complete_by TEXT,"
 				+ "completed INTEGER,"
+				+ "gID INTEGER,"
 				+ "created_on TEXT)");
 
 		// Getting info from goals db
@@ -69,25 +83,25 @@ public class Goal extends Activity {
 
 			// Assigning user record different strings depending on goal type pulled from local db 
 			if(c.getString(3).contains("time")){
-				user = new UserRecord(c.getString(2), "Exercise for "+c.getString(4)+" minutes." , c.getString(5), comp);
+				user = new UserRecord(c.getString(2), "Exercise for "+c.getString(4)+" minutes." , c.getString(5), comp, c.getString(7));
 				users.add(user);
 			}
 			else if(c.getString(3).contains("dist")){
-				user = new UserRecord(c.getString(2), "Exercise for "+c.getString(4)+" metres." , c.getString(5), comp);
+				user = new UserRecord(c.getString(2), "Exercise for "+c.getString(4)+" metres." , c.getString(5), comp, c.getString(7));
 				users.add(user);
 			}
 			else if(c.getString(3).contains("step")){
-				user = new UserRecord(c.getString(2), "Travel "+c.getString(4)+" steps." , c.getString(5), comp);
+				user = new UserRecord(c.getString(2), "Travel "+c.getString(4)+" steps." , c.getString(5), comp, c.getString(7));
 				users.add(user);
 			}
 			else if(c.getString(3).contains("weight")){
-				user = new UserRecord(c.getString(2), "Lose "+c.getString(4)+" kilograms." , c.getString(5), comp);
+				user = new UserRecord(c.getString(2), "Lose "+c.getString(4)+" kilograms." , c.getString(5), comp, c.getString(7));
 				users.add(user);
 			}	
 		}
 
 		// Showing all the goal db entries in a list layout
-		ListView listView = (ListView) findViewById(R.id.ListViewGoal);
+		final ListView listView = (ListView) findViewById(R.id.ListViewGoal);
 		listView.setAdapter(new UserItemAdapter(this, android.R.layout.simple_list_item_1, users));
 
 		// Add Goal Button
@@ -111,6 +125,69 @@ public class Goal extends Activity {
 				finish();
 			}
 		});
+
+		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position, long arg3) {
+
+				AlertDialog.Builder alert = new AlertDialog.Builder(Goal.this);
+
+				alert.setMessage("Do you want delete this Reminder?");
+				alert.setPositiveButton("Yes please!", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// Code to remove from list
+						String uid = users.get(position).id;
+						ListAdapter la = listView.getAdapter();
+						((ArrayAdapter<UserRecord>)la).notifyDataSetChanged(); 
+						Cursor c = db.rawQuery("SELECT * FROM user_goals", null);
+						while(c.moveToNext())	{
+							String id = c.getString(7);
+							int rID = Integer.parseInt(c.getString(7));
+							if(uid.contentEquals(id)){
+								db.execSQL("DELETE FROM user_goals WHERE gID = '"+uid+"'");
+								users.remove(position);
+
+								Log.d("Success", "Record Deleted "+String.valueOf(uid));
+							}
+						}
+					}
+				});
+
+				alert.setNegativeButton("Completed?", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String uid = users.get(position).id;
+						ListAdapter la = listView.getAdapter();
+						((ArrayAdapter<UserRecord>)la).notifyDataSetChanged(); 
+						Cursor c = db.rawQuery("SELECT * FROM user_goals", null);
+						while(c.moveToNext())	{
+							String id = c.getString(7);
+							//int rID = Integer.parseInt(c.getString(7));
+							if(uid.contentEquals(id)){
+								db.execSQL("UPDATE user_goals SET completed = 1 WHERE gID = '"+uid+"'");
+
+								Intent i = new Intent(getApplicationContext(), Goal.class);
+								i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+								startActivity(i);
+							}
+						}
+					}
+				});
+
+				alert.setNeutralButton("Not Yet!", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// Code to dismiss alert dialog
+						dialog.dismiss();
+					}
+				});
+
+				alert.show();
+				return true;
+			}
+		});
+
 
 	}
 
@@ -159,13 +236,14 @@ public class Goal extends Activity {
 	// The UserRecord constructor
 	public class UserRecord {
 
-		public String message, typevalue, comp_by, comp;
+		public String message, typevalue, comp_by, comp, id;
 
-		public UserRecord(String message, String tv, String comp_by, String comp) {
+		public UserRecord(String message, String tv, String comp_by, String comp, String id) {
 			this.message = message;
 			this.typevalue = tv;
 			this.comp_by = comp_by;
 			this.comp = comp;
+			this.id = id;
 		}
 	}
 }

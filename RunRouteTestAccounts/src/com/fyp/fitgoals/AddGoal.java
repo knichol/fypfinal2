@@ -66,6 +66,7 @@ public class AddGoal extends Activity {
 				+ "value INTEGER,"
 				+ "complete_by TEXT,"
 				+ "completed INTEGER,"
+				+ "gID INTEGER,"
 				+ "created_on TEXT)");
 
 		// Goal Type Button - Uses a switch to determine which type of goal the user is creating
@@ -138,9 +139,9 @@ public class AddGoal extends Activity {
 				}
 
 				// Posting goal to local db
-				db.execSQL("INSERT INTO user_goals (user_id, goal_desc, type, value, complete_by, completed, created_on) " +
+				db.execSQL("INSERT INTO user_goals (user_id, goal_desc, type, value, complete_by, completed, gID, created_on) " +
 						"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+goalDesc.getText()+
-						"','"+type+"','"+goalValue.getText()+"','"+date+"','"+0+"','"+dateFormat.format(now).toString()+"');");
+						"','"+type+"','"+goalValue.getText()+"','"+date+"','"+0+"','"+(int)Math.random()*1000+"','"+dateFormat.format(now).toString()+"');");
 
 				// Returning to Goal list
 				Intent i = new Intent(getApplicationContext(), Goal.class);

@@ -40,17 +40,14 @@ public class AddReminder extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.reminder_add);
 
 		timePicker = (TimePicker) findViewById(R.id.remindSetTime);
 		timePicker.setIs24HourView(true);
 
 		// Enable permissions to post to db
-		if (android.os.Build.VERSION.SDK_INT > 9)
-		{
+		if (android.os.Build.VERSION.SDK_INT > 9) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 		}
@@ -126,6 +123,8 @@ public class AddReminder extends Activity {
 	}	
 
 	public void onceReminder() {
+		Log.d("Once Reminder","start");
+		
 		int hourChk = timePicker.getCurrentHour();
 		String minute = String.valueOf(timePicker.getCurrentMinute());
 		String am_pm = (hourChk < 12) ? "AM" : "PM";
@@ -151,7 +150,7 @@ public class AddReminder extends Activity {
 		else
 			cal.set(Calendar.HOUR, timePicker.getCurrentHour());
 
-		Log.d("cal ms", String.valueOf(cal.getTimeInMillis()));
+		Log.d("Cal in ms", String.valueOf(cal.getTimeInMillis()));
 
 		Date now = new Date();
 		long dateMS = cal.getTimeInMillis() - now.getTime();
@@ -177,11 +176,15 @@ public class AddReminder extends Activity {
 		Intent i = new Intent(getApplicationContext(), AlarmManagerActivity.class);
 		i.putExtra("msUntil", dateMS);
 		i.putExtra("remindID", remindID);		
+		Log.d("Once Reminder","end");
+		
 		startActivity(i);
 		finish();
 	}
 
 	public void repReminder(long rep) {
+		Log.d("Repeat Reminder","start");
+		Log.d("Rep", String.valueOf(rep));
 		int hourChk = timePicker.getCurrentHour();
 		String minute = String.valueOf(timePicker.getCurrentMinute());
 		String am_pm = (hourChk < 12) ? "AM" : "PM";
@@ -233,6 +236,8 @@ public class AddReminder extends Activity {
 		i.putExtra("remindID", remindID);
 		i.putExtra("repeat", rep);
 		i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		Log.d("Repeat Reminder","finish");
+		
 		startActivity(i);
 		finish();
 	}
