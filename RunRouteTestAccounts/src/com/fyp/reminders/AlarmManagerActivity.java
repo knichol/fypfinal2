@@ -1,6 +1,6 @@
 package com.fyp.reminders;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.diabetes.diadash;
 import android.os.Bundle;
 import android.app.Activity;
@@ -40,8 +40,6 @@ public class AlarmManagerActivity extends Activity {
 
 		Log.e("Here", "getting here");
 
-
-		// This code is causing big problems
 		// Repeated reminders
 		if (repeat != 0){
 			// do stuff
@@ -69,32 +67,6 @@ public class AlarmManagerActivity extends Activity {
 			setContentView(R.layout.diahome);
 		}
 		
-		// Everything below this not being used
-		//		btnRepeat= (Button) findViewById(R.id.btStart);
-		//		btnCancel = (Button) findViewById(R.id.btCancel);
-		//		btnOne = (Button) findViewById(R.id.btOneTime);
-		//		
-		//		btnRepeat.setOnClickListener(new View.OnClickListener() {
-		//			@Override
-		//			public void onClick(View arg0) {
-		//				startRepeatingTimer(arg0);
-		//			}
-		//		});
-		//		
-		//		btnCancel.setOnClickListener(new View.OnClickListener() {
-		//			@Override
-		//			public void onClick(View arg0) {
-		//				cancelRepeatingTimer(arg0);
-		//			}
-		//		});
-		//		
-		//		btnOne.setOnClickListener(new View.OnClickListener() {
-		//			@Override
-		//			public void onClick(View arg0) {
-		//				onetimeTimer(arg0);
-		//			}
-		//		});
-
 	}
 
 	@Override

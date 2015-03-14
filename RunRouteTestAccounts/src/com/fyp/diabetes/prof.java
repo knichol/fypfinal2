@@ -1,6 +1,6 @@
 package com.fyp.diabetes;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.library.UserFunctions;
 
 import android.app.Activity;

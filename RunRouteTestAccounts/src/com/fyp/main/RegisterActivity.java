@@ -3,7 +3,7 @@ package com.fyp.main;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.library.DatabaseHandler;
 import com.fyp.library.UserFunctions;
 

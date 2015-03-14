@@ -5,8 +5,7 @@ import java.text.NumberFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.androidgpsexample.R;
-import com.fyp.library.FileUtility;
+import com.kninc.hlt.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.maps.CameraUpdate;
@@ -38,17 +37,12 @@ import android.widget.Toast;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 
 public class MainActivity extends FragmentActivity implements android.location.LocationListener,
 GooglePlayServicesClient.ConnectionCallbacks,
-GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
+GooglePlayServicesClient.OnConnectionFailedListener {
 
 	private LocationManager lm;
-	private Location loc;
 
 	// Notification variables
 	private NotificationManager mNotificationManager;
@@ -66,12 +60,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 
 	private boolean run = true;
 
-	private FileUtility myFile, myFile2;
 	private int ctr;
-	private double lat,lng;
-	private SensorManager senSensorManager;
-	private Sensor senAccelerometer;
-
+	
 	private double oldLat, oldLong, currLat, currLong;
 
 	// Map fragment
@@ -106,29 +96,11 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 			}
 		});
 
-		//		// Display current distant - deprecated?
-		//		Button dist = (Button) findViewById(R.id.dist);
-		//		dist.setOnClickListener(new View.OnClickListener() {
-		//			@Override
-		//			public void onClick (View v) {
-		//				Toast toast = Toast.makeText(getApplicationContext(), "Curr dist: "+distance+ " Mode: "+run, 3);
-		//				toast.show();
-		//			}
-		//		});
-
-
 		// Checking if GPS enabled
 		final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
 		if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			buildAlertMessageNoGps();
 		}
-
-
-		senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-		senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-		// Comment out line below to turn off accelerometer
-		senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -157,33 +129,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 		startTimer();
 		Log.i("Timer Started", "from launch");
 
-
-		//		// Accel File setup
-		//		myFile2 = new FileUtility();
-		//		String fileName2 = "test_file_accel.txt"; 
-		//		myFile2.createFile(getApplicationContext(),fileName2);
-		//
-		//		//create a new file using the utility class: "FileUtility"
-		//		myFile = new FileUtility();
-		//		String fileName = "test_file_gps.txt"; 
-		//		//create the file if it does not exist
-		//		myFile.createFile(getApplicationContext(),fileName);
-		//		String fileContents = myFile.readAll();
-		//		String[] locations = fileContents.split("\n");
-		//
-		//		if (fileContents.length() > 0) {
-		//			for (int i = 0; i < locations.length; i++){
-		//				// Add saved locations to map here
-		//				String s = locations[i];
-		//				String[] sx = s.split(",");
-		//				lat = Double.parseDouble(sx[0]);
-		//				lng = Double.parseDouble(sx[1]);
-		//				mapFragment.getMap().addMarker(new MarkerOptions()
-		//				.position(new LatLng(lat, lng)).title("Counter: "+(ctr+i)));
-		//			}
-		//		}
-
-
 		final long runTime = System.currentTimeMillis();
 
 		// Link to "Home" Screen
@@ -193,8 +138,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 				stoptimertask();
 				numMessages = 0;
 				run = false;
-				Intent i = new Intent(getApplicationContext(),
-						DashboardActivity.class);
+				Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
 				startActivity(i);
 				finish();
 			}
@@ -223,20 +167,19 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 		.setCancelable(false)
 		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			@Override
-			public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+			public void onClick(final DialogInterface dialog, final int id) {
 				startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 			}
 		})
 		.setNegativeButton("No", new DialogInterface.OnClickListener() {
 			@Override
-			public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+			public void onClick(final DialogInterface dialog, final int id) {
 				dialog.cancel();
 			}
 		});
 		final AlertDialog alert = builder.create();
 		alert.show();
 	}
-
 
 	@Override
 	public void onLocationChanged(Location arg0) {
@@ -299,14 +242,12 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 				distance += locationA.distanceTo(locationB);
 				timerDist = distance - timerDist;
 
-				Toast toast = Toast.makeText(getApplicationContext(), "Curr dist: "+distance, 2);
+				Toast toast = Toast.makeText(getApplicationContext(), "Curr dist: "+distance, Toast.LENGTH_SHORT);
 				toast.show();
 
 			}
 		}
 
-		// Add location to file here
-		//myFile.writeLine(arg0.getLatitude(), arg0.getLongitude());
 	}
 
 	public void startTimer() {
@@ -318,8 +259,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 		timer = new Timer();
 		initializeTimerTask();
 
-		// schedule the timer, after the first 3mins the TimerTask will run every 5mins
-		timer.schedule(timerTask, 5000, 5000);
+		// schedule the timer, after the first 30mins the TimerTask will run every 5mins
+		timer.schedule(timerTask, 1800000, 1800000);
 	}
 
 	public void stoptimertask() {
@@ -341,8 +282,8 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 		timerTask = new TimerTask() {
 			@Override
 			public void run() {
-				// If the distance b/w pts grtr than 500m, restart timer
-				if (timerDist > 500) {
+				// If the distance b/w pts grtr than 50m, restart timer
+				if (timerDist > 50) {
 					stoptimertask();
 					startTimer();
 				}
@@ -385,10 +326,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 		// Adds the Intent that starts the Activity to the top of the stack
 		stackBuilder.addNextIntent(resultIntent);
 		PendingIntent resultPendingIntent =
-				stackBuilder.getPendingIntent(
-						0,
-						PendingIntent.FLAG_UPDATE_CURRENT
-						);
+				stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		mBuilder.setContentIntent(resultPendingIntent);
 
@@ -421,21 +359,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 	@Override
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		Log.e("GPS", "status changed to " + arg0 + " [" + arg1 + "]");
-	}
-
-	@Override
-	public void onSensorChanged(SensorEvent sensorEvent) {
-		Sensor mySensor = sensorEvent.sensor;
-		if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-			float x = sensorEvent.values[0];
-			float y = sensorEvent.values[1];
-			float z = sensorEvent.values[2];
-			//myFile2.writeLine(x+","+y+","+z);
-		}
-	}
-
-	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 	}
 
 	@Override

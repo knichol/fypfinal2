@@ -23,7 +23,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.library.UserFunctions;
 
 public class AddReminder extends Activity {
@@ -66,6 +66,7 @@ public class AddReminder extends Activity {
 				+ "message TEXT,"
 				+ "time TEXT,"
 				+ "date TEXT,"
+				+ "repeat TEXT,"
 				+ "ms_until INTEGER,"
 				+ "remindID INTEGER,"
 				+ "created_on TEXT)");
@@ -163,9 +164,9 @@ public class AddReminder extends Activity {
 					time, date);
 		}
 		
-		db.execSQL("INSERT INTO user_reminder (user_id, message, time, date, ms_until, remindID, created_on) " +
+		db.execSQL("INSERT INTO user_reminder (user_id, message, time, date, repeat, ms_until, remindID, created_on) " +
 				"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+remindMsg.getText()+
-				"','"+time+"','"+date+"','"+dateMS+"','"+remindID+"','"+dateFormat.format(now).toString()+"');");
+				"','"+time+"','"+date+"','"+"No"+"','"+dateMS+"','"+remindID+"','"+dateFormat.format(now).toString()+"');");
 
 		Log.d("Mins", String.valueOf((dateMS/(1000*60))));
 		Log.d("Hours", String.valueOf((dateMS/(1000*60*60))));
@@ -219,9 +220,9 @@ public class AddReminder extends Activity {
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 
-		db.execSQL("INSERT INTO user_reminder (user_id, message, time, date, ms_until, remindID, created_on) " +
+		db.execSQL("INSERT INTO user_reminder (user_id, message, time, date, repeat, ms_until, remindID, created_on) " +
 				"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+remindMsg.getText()+
-				"','"+time+"','"+date+"','"+dateMS+"','"+remindID+"','"+dateFormat.format(now).toString()+"');");
+				"','"+time+"','"+date+"','"+"Yes"+"','"+dateMS+"','"+remindID+"','"+dateFormat.format(now).toString()+"');");
 
 		Log.d("Mins", String.valueOf((dateMS/(1000*60))));
 		Log.d("Hours", String.valueOf((dateMS/(1000*60*60))));
@@ -229,7 +230,7 @@ public class AddReminder extends Activity {
 		Log.d("Millisecs", String.valueOf(dateMS));
 		Log.d("Rep", String.valueOf(rep));
 
-		rep = 5000;
+		//rep = 5000;
 		// Need to bundle dateMS to AlarmManagerActivity
 		Intent i = new Intent(getApplicationContext(), AlarmManagerActivity.class);
 		i.putExtra("msUntil", dateMS);

@@ -9,7 +9,7 @@ import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.library.UserFunctions;
 
 import android.app.Activity;

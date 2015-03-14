@@ -1,7 +1,7 @@
 package com.fyp.reminders;
 
 import java.util.ArrayList;
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.diabetes.diadash;
 import com.fyp.library.UserFunctions;
 
@@ -25,7 +25,6 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -41,7 +40,6 @@ public class Reminder extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.remind_view);
 
@@ -58,6 +56,7 @@ public class Reminder extends Activity {
 				+ "message TEXT,"
 				+ "time TEXT,"
 				+ "date TEXT,"
+				+ "repeat TEXT,"
 				+ "ms_until INTEGER,"
 				+ "remindID INTEGER,"
 				+ "created_on TEXT)");
@@ -66,7 +65,8 @@ public class Reminder extends Activity {
 				"'"+userFunction.getUID(getApplicationContext())+"'", null);
 
 		while(c.moveToNext()) {
-			user = new UserRecord(c.getString(2), c.getString(3) +" on " + c.getString(4), c.getString(6));
+			user = new UserRecord(c.getString(2), c.getString(3) +" on " + c.getString(4),
+					c.getString(7), c.getString(5));
 			users.add(user);
 		}
 
@@ -109,8 +109,8 @@ public class Reminder extends Activity {
 						((ArrayAdapter<UserRecord>)la).notifyDataSetChanged(); 
 						Cursor c = db.rawQuery("SELECT * FROM user_reminder", null);
 						while(c.moveToNext())	{
-							String id = c.getString(6);
-							int rID = Integer.parseInt(c.getString(6));
+							String id = c.getString(7);
+							int rID = Integer.parseInt(c.getString(7));
 							if(uid.contentEquals(id)){
 								db.execSQL("DELETE FROM user_reminder WHERE remindID = '"+uid+"'");
 								users.remove(position);
@@ -126,6 +126,7 @@ public class Reminder extends Activity {
 								alarmManager.cancel(pendingIntent);
 
 								Log.d("Success", "Record Deleted "+String.valueOf(uid));
+								db.close();
 							}
 						}
 					}
@@ -165,13 +166,18 @@ public class Reminder extends Activity {
 			if (user != null) {
 				TextView message = (TextView) v.findViewById(R.id.remindMsg);
 				TextView datetime = (TextView) v.findViewById(R.id.remindDT);
-
+				TextView repeat = (TextView) v.findViewById(R.id.remindRep);
+				
 				if (message != null) {
 					message.setText("MESSAGE: " + user.message);
 				}
 
 				if(datetime != null) {
-					datetime.setText("TIME/DATE: " + user.datetime );
+					datetime.setText("TIME/DATE: " + user.datetime);
+				}
+				
+				if(repeat!= null) {
+					repeat.setText("REPEAT REMINDER?: " + user.rep);
 				}
 			}
 			return v;
@@ -181,14 +187,13 @@ public class Reminder extends Activity {
 
 	public class UserRecord {
 
-		public String message;
-		public String datetime;
-		public String id;
-
-		public UserRecord(String message, String datetime, String id) {
+		public String message, datetime, id, rep;
+		
+		public UserRecord(String message, String datetime, String id, String rep) {
 			this.message = message;
 			this.datetime = datetime;
 			this.id = id;
+			this.rep = rep;
 		}
 	}
 }

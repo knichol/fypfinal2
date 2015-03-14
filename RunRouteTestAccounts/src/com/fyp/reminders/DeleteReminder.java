@@ -3,7 +3,7 @@ package com.fyp.reminders;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.diabetes.diadash;
 import com.fyp.library.UserFunctions;
 import android.app.Activity;

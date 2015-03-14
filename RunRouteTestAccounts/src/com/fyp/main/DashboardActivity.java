@@ -1,6 +1,6 @@
 package com.fyp.main;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.diabetes.diadash;
 import com.fyp.fitness.fitdash;
 import com.fyp.library.UserFunctions;

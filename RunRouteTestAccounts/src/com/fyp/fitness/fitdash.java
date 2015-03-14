@@ -1,6 +1,6 @@
 package com.fyp.fitness;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.fitgoals.Goal;
 
 import android.app.Activity;

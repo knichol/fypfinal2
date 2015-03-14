@@ -90,7 +90,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
 		PendingIntent pi = PendingIntent.getBroadcast(context, rID, intent, 0);
 
-		am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + ms, 15000, pi);
+		am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + ms, rep, pi);
 		Toast.makeText(context, "Repeat alarm set to repeat " + String.valueOf(rep) + " ms", 
 				Toast.LENGTH_LONG).show();
 	}

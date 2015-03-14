@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.library.UserFunctions;
 import android.app.Activity;
 import android.app.AlertDialog;

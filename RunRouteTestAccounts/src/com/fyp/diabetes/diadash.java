@@ -1,9 +1,9 @@
 package com.fyp.diabetes;
 
-import com.example.androidgpsexample.R;
 import com.fyp.graphs.XYChartBuilder;
 import com.fyp.library.UserFunctions;
 import com.fyp.reminders.Reminder;
+import com.kninc.hlt.R;
 
 import android.app.Activity;
 import android.app.AlertDialog.Builder;

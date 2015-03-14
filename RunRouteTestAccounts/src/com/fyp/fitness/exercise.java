@@ -11,7 +11,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.graphs.XYChartBuilderF;
 import com.fyp.main.MainActivity;
 

@@ -1,9 +1,9 @@
 package com.fyp.diabetes;
 
 import java.util.ArrayList;
-import com.example.androidgpsexample.R;
 import com.fyp.diabetes.diadash;
 import com.fyp.library.UserFunctions;
+import com.kninc.hlt.R;
 
 import android.app.Activity;
 import android.content.Context;

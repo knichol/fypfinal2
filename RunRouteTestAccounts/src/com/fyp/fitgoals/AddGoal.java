@@ -20,8 +20,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import com.example.androidgpsexample.R;
 import com.fyp.library.UserFunctions;
+import com.kninc.hlt.R;
 
 public class AddGoal extends Activity {
 

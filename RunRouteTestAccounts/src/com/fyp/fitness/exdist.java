@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.main.DashboardActivity;
 import com.fyp.main.FinishScreen;
 import com.google.android.gms.common.ConnectionResult;
@@ -39,13 +39,10 @@ import android.widget.Toast;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 
 public class exdist extends FragmentActivity implements android.location.LocationListener,
 GooglePlayServicesClient.ConnectionCallbacks,
-GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
+GooglePlayServicesClient.OnConnectionFailedListener {
 
 	private LocationManager lm;
 
@@ -292,7 +289,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 		initializeTimerTask();
 
 		// schedule the timer, after the first 3mins the TimerTask will run every 5mins
-		timer.schedule(timerTask, 5000, 5000);
+		timer.schedule(timerTask, 1800000, 1800000);
 	}
 
 	public void stoptimertask() {
@@ -315,7 +312,7 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 			@Override
 			public void run() {
 				// If the distance b/w pts grtr than 500m, restart timer
-				if (timerDist > 500) {
+				if (timerDist > 50) {
 					stoptimertask();
 					startTimer();
 				}
@@ -391,14 +388,6 @@ GooglePlayServicesClient.OnConnectionFailedListener, SensorEventListener {
 	@Override
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		Log.e("GPS", "status changed to " + arg0 + " [" + arg1 + "]");
-	}
-
-	@Override
-	public void onSensorChanged(SensorEvent sensorEvent) {
-	}
-
-	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 	}
 
 	@Override

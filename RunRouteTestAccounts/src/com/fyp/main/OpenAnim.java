@@ -1,6 +1,6 @@
 package com.fyp.main;
 
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

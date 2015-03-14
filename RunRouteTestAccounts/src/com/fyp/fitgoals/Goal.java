@@ -1,24 +1,17 @@
 package com.fyp.fitgoals;
 
 import java.util.ArrayList;
-import com.example.androidgpsexample.R;
+import com.kninc.hlt.R;
 import com.fyp.fitness.fitdash;
 import com.fyp.library.UserFunctions;
-import com.fyp.reminders.AlarmManagerBroadcastReceiver;
-import com.fyp.reminders.Reminder;
-import com.fyp.reminders.Reminder.UserRecord;
-
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
