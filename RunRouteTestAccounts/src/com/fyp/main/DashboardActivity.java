@@ -54,7 +54,7 @@ public class DashboardActivity extends Activity {
 					login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(login);
 					// Closing dashboard screen
-					//finish();
+					finish();
 				}
 			});
 

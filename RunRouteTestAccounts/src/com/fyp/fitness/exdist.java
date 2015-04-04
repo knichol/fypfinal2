@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
 import android.app.AlertDialog;
@@ -79,6 +80,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -230,10 +232,10 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 				oldLat = currLat;
 				oldLong = currLong;
 
-				// Add marker to map here
-				mapFragment.getMap().addMarker(new MarkerOptions()
-				.position(new LatLng(currLat, currLong))
-				.title("Counter: "+(ctr)));;
+//				// Add marker to map here
+//				mapFragment.getMap().addMarker(new MarkerOptions()
+//				.position(new LatLng(currLat, currLong))
+//				.title("Counter: "+(ctr)));;
 
 				ctr += 1;
 
@@ -252,10 +254,10 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 				currLat = mapFragment.getMap().getMyLocation().getLatitude();
 				currLong = mapFragment.getMap().getMyLocation().getLongitude();
 
-				// Add marker to map here
-				mapFragment.getMap().addMarker(new MarkerOptions()
-				.position(new LatLng(currLat, currLong))
-				.title("Counter: "+(ctr)));;
+//				// Add marker to map here
+//				mapFragment.getMap().addMarker(new MarkerOptions()
+//				.position(new LatLng(currLat, currLong))
+//				.title("Counter: "+(ctr)));;
 
 				ctr += 1;
 

@@ -178,7 +178,7 @@ public class AddReminder extends Activity {
 		i.putExtra("msUntil", dateMS);
 		i.putExtra("remindID", remindID);		
 		Log.d("Once Reminder","end");
-		
+		i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(i);
 		finish();
 	}
@@ -220,6 +220,11 @@ public class AddReminder extends Activity {
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 
+		if(checkInternet(getApplicationContext())) {
+			userFunction.postReminder(userFunction.getUID(getApplicationContext()), remindMsg.getText().toString(),
+					time, date);
+		}
+		
 		db.execSQL("INSERT INTO user_reminder (user_id, message, time, date, repeat, ms_until, remindID, created_on) " +
 				"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+remindMsg.getText()+
 				"','"+time+"','"+date+"','"+"Yes"+"','"+dateMS+"','"+remindID+"','"+dateFormat.format(now).toString()+"');");

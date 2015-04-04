@@ -104,7 +104,7 @@ public class XYChartBuilder extends Activity {
 			@Override
 			public void onClick(View v) {
 				series(" hBA1c   ", Color.argb(255, 237, 109, 121), PointStyle.SQUARE);
-				getGlucose();
+				getA1c();
 				btnA1c.setEnabled(false);
 			}
 		});

@@ -55,7 +55,7 @@ public class FinishScreen extends Activity {
 		float dist = 0;
 		long runTime1 = System.currentTimeMillis();
 		long runTime2 = 0;
-		String dType = "m";
+		String dType = "metres";
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {

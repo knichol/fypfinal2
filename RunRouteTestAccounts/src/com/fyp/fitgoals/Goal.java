@@ -80,7 +80,7 @@ public class Goal extends Activity {
 				users.add(user);
 			}
 			else if(c.getString(3).contains("dist")){
-				user = new UserRecord(c.getString(2), "Exercise for "+c.getString(4)+" metres." , c.getString(5), comp, c.getString(7));
+				user = new UserRecord(c.getString(2), "Exercise for "+c.getString(4)+" kilometres." , c.getString(5), comp, c.getString(7));
 				users.add(user);
 			}
 			else if(c.getString(3).contains("step")){
@@ -132,7 +132,7 @@ public class Goal extends Activity {
 						// Code to remove from list
 						String uid = users.get(position).id;
 						ListAdapter la = listView.getAdapter();
-						((ArrayAdapter<UserRecord>)la).notifyDataSetChanged(); 
+						
 						Cursor c = db.rawQuery("SELECT * FROM user_goals", null);
 						while(c.moveToNext())	{
 							String id = c.getString(7);
@@ -142,8 +142,11 @@ public class Goal extends Activity {
 								users.remove(position);
 
 								Log.d("Success", "Record Deleted "+String.valueOf(uid));
+						
 							}
 						}
+						((ArrayAdapter<UserRecord>)la).notifyDataSetChanged(); 
+						listView.invalidateViews();
 					}
 				});
 
@@ -152,19 +155,22 @@ public class Goal extends Activity {
 					public void onClick(DialogInterface dialog, int which) {
 						String uid = users.get(position).id;
 						ListAdapter la = listView.getAdapter();
-						((ArrayAdapter<UserRecord>)la).notifyDataSetChanged(); 
+						
 						Cursor c = db.rawQuery("SELECT * FROM user_goals", null);
 						while(c.moveToNext())	{
 							String id = c.getString(7);
 							//int rID = Integer.parseInt(c.getString(7));
 							if(uid.contentEquals(id)){
 								db.execSQL("UPDATE user_goals SET completed = 1 WHERE gID = '"+uid+"'");
-
-								Intent i = new Intent(getApplicationContext(), Goal.class);
-								i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-								startActivity(i);
 							}
 						}
+						((ArrayAdapter<UserRecord>)la).notifyDataSetChanged(); 
+						listView.invalidateViews();
+						
+						Intent i = new Intent(getApplicationContext(), fitdash.class);
+						i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+						startActivity(i);
+						finish();
 					}
 				});
 

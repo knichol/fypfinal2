@@ -106,7 +106,7 @@ public class Reminder extends Activity {
 						// Code to remove from list
 						String uid = users.get(position).id;
 						ListAdapter la = listView.getAdapter();
-						((ArrayAdapter<UserRecord>)la).notifyDataSetChanged(); 
+						//((ArrayAdapter<UserRecord>)la).notifyDataSetChanged(); 
 						Cursor c = db.rawQuery("SELECT * FROM user_reminder", null);
 						while(c.moveToNext())	{
 							String id = c.getString(7);
@@ -129,6 +129,7 @@ public class Reminder extends Activity {
 								db.close();
 							}
 						}
+						((ArrayAdapter<UserRecord>)la).notifyDataSetChanged();
 					}
 				});
 

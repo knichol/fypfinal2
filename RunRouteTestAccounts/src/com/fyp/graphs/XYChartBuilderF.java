@@ -82,7 +82,7 @@ public class XYChartBuilderF extends Activity {
 		btnDist.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				series("  Distance   ", Color.argb(255, 102, 151, 224), PointStyle.TRIANGLE);
+				series("  Distance(km)   ", Color.argb(255, 102, 151, 224), PointStyle.TRIANGLE);
 				getDist();
 				btnDist.setEnabled(false);
 			}
@@ -154,7 +154,13 @@ public class XYChartBuilderF extends Activity {
 
 		int i=1;
 		while(c.moveToNext()) {
-			addpts(i++,Double.parseDouble(c.getString(2).replaceAll("[a-zA-Z]", "")));
+			if(c.toString().contains("metres")){
+				double l = Double.parseDouble(c.getString(2).replaceAll("[a-zA-Z]", ""));
+				l = l/1000;
+				addpts(i++,l);
+			}
+			else
+				addpts(i++,Double.parseDouble(c.getString(2).replaceAll("[a-zA-Z]", "")));
 		}
 	}
 

@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     package="com.kninc.hlt"
-    android:versionCode="1"
-    android:versionName="1.1" >
+    android:versionCode="4"
+    android:versionName="1.12" >
 
     <uses-sdk
-        android:minSdkVersion="19"
+        android:minSdkVersion="16"
         android:targetSdkVersion="22" />
 
     <!-- Permissions -->
@@ -22,6 +22,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -32,15 +33,19 @@
         android:icon="@drawable/hlt"
         android:label="Healthy Life Tracker"
         android:theme="@style/AppTheme" >
+        
+        <!-- Live Key Being Used -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDl3LuHoGuhBN2x1Vp0oYMmMS74Hoq5aRA" />
+            android:value="AIzaSyBG2f2J70grlvQVfzjgpIFEwCsq-5kZA38" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <!-- Opening Animation Activity -->
-        <activity android:name="com.fyp.main.OpenAnim" >
+        <activity
+            android:name="com.fyp.main.OpenAnim"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,94 +54,139 @@
         </activity>
 
         <!-- Login Activity -->
-        <activity android:name="com.fyp.main.LoginActivity" >
+        <activity
+            android:name="com.fyp.main.LoginActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.main.RegisterActivity" />
         </activity>
 
         <!-- Register Activity -->
-        <activity android:name="com.fyp.main.RegisterActivity" >
+        <activity
+            android:name="com.fyp.main.RegisterActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.main.LoginActivity" />
         </activity>
-        <activity android:name="com.fyp.main.MainActivity" >
+        <activity
+            android:name="com.fyp.main.MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.fyp.main.FinishScreen" >
+        <activity
+            android:name="com.fyp.main.FinishScreen"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.fyp.diabetes.UpdateMetrics" >
+        <activity
+            android:name="com.fyp.diabetes.UpdateMetrics"
+            android:screenOrientation="portrait" >
         </activity>
 
         <!-- Main Dashboard Activity -->
-        <activity android:name="com.fyp.main.DashboardActivity" >
+        <activity
+            android:name="com.fyp.main.DashboardActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.main.DashboardActivity" />
         </activity>
 
         <!-- DIABETES: Dashboard -->
-        <activity android:name="com.fyp.diabetes.diadash" >
+        <activity
+            android:name="com.fyp.diabetes.diadash"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.main.DashBoardActivity" />
         </activity>
 
         <!-- DIABETES: User Profile -->
-        <activity android:name="com.fyp.diabetes.prof" >
+        <activity
+            android:name="com.fyp.diabetes.prof"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.diabetes.diadash" />
         </activity>
 
         <!-- DIABETES: Graphs -->
-        <activity android:name="com.fyp.graphs.XYChartBuilder" >
+        <activity
+            android:name="com.fyp.graphs.XYChartBuilder"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.fitness.diadash" />
         </activity>
 
         <!-- DIABETES: Set User Metrics -->
-        <activity android:name="com.fyp.diabetes.setmet" >
+        <activity
+            android:name="com.fyp.diabetes.setmet"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.diabetes.diadash" />
         </activity>
 
         <!-- DIABETES: Set User Metrics -->
-        <activity android:name="com.fyp.diabetes.History" >
+        <activity
+            android:name="com.fyp.diabetes.History"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.diabetes.diadash" />
         </activity>
 
         <!-- FITNESS: Main Dashboard -->
-        <activity android:name="com.fyp.fitness.fitdash" >
+        <activity
+            android:name="com.fyp.fitness.fitdash"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.main.DashboardActivity" />
         </activity>
 
         <!-- FITNESS: Exercise Dashboard -->
-        <activity android:name="com.fyp.fitness.exercise" >
+        <activity
+            android:name="com.fyp.fitness.exercise"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.fitness.fitdash" />
         </activity>
 
         <!-- FITNESS: Distance Exercise -->
-        <activity android:name="com.fyp.fitness.exdist" >
+        <activity
+            android:name="com.fyp.fitness.exdist"
+            android:screenOrientation="portrait" >
         </activity>
 
         <!-- FITNESS: Timed Exercise -->
-        <activity android:name="com.fyp.fitness.extimed" >
+        <activity
+            android:name="com.fyp.fitness.extimed"
+            android:screenOrientation="portrait" >
         </activity>
 
         <!-- FITNESS: Graphs -->
-        <activity android:name="com.fyp.graphs.XYChartBuilderF" >
+        <activity
+            android:name="com.fyp.graphs.XYChartBuilderF"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.fitness.exercise" />
         </activity>
 
         <!-- FITNESS: Goals -->
-        <activity android:name="com.fyp.fitgoals.Goal" >
+        <activity
+            android:name="com.fyp.fitgoals.Goal"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.fitness.fitdash" />
         </activity>
-        <activity android:name="com.fyp.fitgoals.AddGoal" >
+        <activity
+            android:name="com.fyp.fitgoals.AddGoal"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.fitgoals.Goal" />
@@ -145,15 +195,19 @@
         <!-- DIABETES: Reminders -->
         <activity android:name="com.fyp.reminders.AlarmManagerActivity" >
         </activity>
-        <activity android:name="com.fyp.reminders.Reminder" >
+        <activity
+            android:name="com.fyp.reminders.Reminder"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.diabetes.diadash" />
         </activity>
-        <activity android:name="com.fyp.reminders.AddReminder" >
+        <activity
+            android:name="com.fyp.reminders.AddReminder"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.fyp.reminders.Reminder" />
+                android:value="com.fyp.reminders.diadash" />
         </activity>
         <activity android:name="com.fyp.reminders.DeleteReminder" >
         </activity>

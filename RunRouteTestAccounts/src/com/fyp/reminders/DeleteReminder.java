@@ -66,7 +66,7 @@ public class DeleteReminder extends Activity{
 				Log.d("Error", "Invalid Rollno "+ String.valueOf(rID));
 			}
 
-			Intent i = new Intent(getApplicationContext(), Reminder.class);
+			Intent i = new Intent(getApplicationContext(), diadash.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(i);
 			finish();
@@ -88,7 +88,7 @@ public class DeleteReminder extends Activity{
 				Log.d("Error", "Invalid Rollno "+ String.valueOf(rID));
 			}
 
-			Intent i = new Intent(getApplicationContext(), Reminder.class);
+			Intent i = new Intent(getApplicationContext(), diadash.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(i);
 			finish();
@@ -113,7 +113,8 @@ public class DeleteReminder extends Activity{
 		mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
 		mBuilder.setDefaults(Notification.DEFAULT_SOUND);
 		mBuilder.setLights(Color.WHITE, 1500, 1000);
-
+		mBuilder.setAutoCancel(true);
+		
 		// Increase notification number every time a new notification arrives
 		mBuilder.setNumber(++numMessages);
 

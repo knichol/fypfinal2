@@ -13,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -137,11 +138,12 @@ public class AddGoal extends Activity {
 							goalDesc.getText().toString(), type, goalValue.getText().toString(),
 							date, "No");
 				}
-
+				int gid = (int) (Math.random()*1000);
+				//Log.d("gid", String.valueOf(gid));
 				// Posting goal to local db
 				db.execSQL("INSERT INTO user_goals (user_id, goal_desc, type, value, complete_by, completed, gID, created_on) " +
 						"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+goalDesc.getText()+
-						"','"+type+"','"+goalValue.getText()+"','"+date+"','"+0+"','"+(int)Math.random()*1000+"','"+dateFormat.format(now).toString()+"');");
+						"','"+type+"','"+goalValue.getText()+"','"+date+"','"+0+"','"+gid+"','"+dateFormat.format(now).toString()+"');");
 
 				// Returning to Goal list
 				Intent i = new Intent(getApplicationContext(), Goal.class);

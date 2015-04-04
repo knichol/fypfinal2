@@ -256,26 +256,26 @@ public class setmet extends Activity {
 						if(chkA1c < 4)
 							showMessage("HbA1c Warning!", "Your HbA1c level is: "+chkA1c+
 									"% mmol/mol which means you may be hypoglycemic!");
-						if(chkGluc >= 7)
+						if(chkA1c > 7)
 							showMessage("HbA1c Warning!", "Your HbA1c level is: "+chkA1c+
 									"% mmol/mol which means you may be hyperglycemic!");
 
 						// Blood Pressure checks and warnings
-						if(chkBPs < 90 && chkBPd < 60)
+						if(chkBPs < 90 || chkBPd < 60)
 							showMessage("Blood Pressure Warning!", "Your Blood Pressure is: "+chkBPs+"/"+chkBPd+
-									" which means you have low blood pressure!");
+									" which means you might have low blood pressure!");
 
-						if(chkBPs >= 120 && chkBPs < 140 && chkBPd < 90 && chkBPd >= 80)
+						if((chkBPs >= 120 && chkBPs < 140) || (chkBPd < 90 && chkBPd >= 80))
 							showMessage("Blood Pressure Warning!", "Your Blood Pressure is: "+chkBPs+"/"+chkBPd+
-									" which means you are suffering from Prehypertension!");
+									" which means you may be suffering from Prehypertension!");
 
-						if(chkBPs >= 140 && chkBPs < 180 && chkBPd < 110 && chkBPd >= 90)
+						if((chkBPs >= 140 && chkBPs < 180) || (chkBPd < 110 && chkBPd >= 90))
 							showMessage("Blood Pressure Warning!", "Your Blood Pressure is: "+chkBPs+"/"+chkBPd+
-									" which means you have High Blood Pressure and are suffering from Hypertension!");
+									" which means you have High Blood Pressure and might be suffering from Hypertension!");
 
-						if(chkBPs >= 180 && chkBPd >= 110)
+						if(chkBPs >= 180 || chkBPd >= 110)
 							showMessage("Blood Pressure Warning!", "Your Blood Pressure is: "+chkBPs+"/"+chkBPd+
-									" which means you have gone Hypertensive. Please seek immediate medical advice!");
+									" which means you may have gone Hypertensive. Please seek immediate medical advice!");
 					}
 					
 					// Add a short delay before sending back to  diabetes dashboard
