@@ -33,11 +33,12 @@
         android:icon="@drawable/hlt"
         android:label="Healthy Life Tracker"
         android:theme="@style/AppTheme" >
-        
-        <!-- Live Key Being Used -->
+
+        <!-- Live Key: AIzaSyBG2f2J70grlvQVfzjgpIFEwCsq-5kZA38 -->
+        <!-- Debug Key: AIzaSyDl3LuHoGuhBN2x1Vp0oYMmMS74Hoq5aRA -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBG2f2J70grlvQVfzjgpIFEwCsq-5kZA38" />
+            android:value="AIzaSyDl3LuHoGuhBN2x1Vp0oYMmMS74Hoq5aRA" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

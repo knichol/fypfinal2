@@ -43,7 +43,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 		Format formatter = new SimpleDateFormat("hh:mm:ss a");
 		msgStr.append(formatter.format(new Date()));
 
-		Toast.makeText(context, msgStr, Toast.LENGTH_LONG).show();
+		//Toast.makeText(context, msgStr, Toast.LENGTH_LONG).show();
 		Log.d("Reminder", "received " +remindID);
 		//Log.d("Repeat Reminder", String.valueOf(rep));
 
@@ -70,8 +70,8 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 		PendingIntent pi = PendingIntent.getBroadcast(context,  rID, intent, PendingIntent.FLAG_ONE_SHOT);
 
 		am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + ms, pi);
-		Toast.makeText(context, "Alarm set in " + String.valueOf(ms) + " ms", 
-				Toast.LENGTH_LONG).show();
+//		Toast.makeText(context, "Alarm set in " + String.valueOf(ms) + " ms", 
+//				Toast.LENGTH_LONG).show();
 	}
 
 	// New code for repeated reminders
@@ -91,8 +91,8 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 		PendingIntent pi = PendingIntent.getBroadcast(context, rID, intent, 0);
 
 		am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + ms, rep, pi);
-		Toast.makeText(context, "Repeat alarm set to repeat " + String.valueOf(rep) + " ms", 
-				Toast.LENGTH_LONG).show();
+//		Toast.makeText(context, "Repeat alarm set to repeat " + String.valueOf(rep) + " ms", 
+//				Toast.LENGTH_LONG).show();
 	}
 
 }

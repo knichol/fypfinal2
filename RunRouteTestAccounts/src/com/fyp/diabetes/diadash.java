@@ -2,6 +2,7 @@ package com.fyp.diabetes;
 
 import com.fyp.graphs.XYChartBuilder;
 import com.fyp.library.UserFunctions;
+import com.fyp.main.DashboardActivity;
 import com.fyp.reminders.Reminder;
 import com.kninc.hlt.R;
 
@@ -108,6 +109,14 @@ public class diadash extends Activity {
 			}
 		});
 
+	}
+	
+	@Override
+	public void onBackPressed() {
+		Intent dia = new Intent(getApplicationContext(), DashboardActivity.class);
+		dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		startActivity(dia);
+		finish();
 	}
 
 	// Display message

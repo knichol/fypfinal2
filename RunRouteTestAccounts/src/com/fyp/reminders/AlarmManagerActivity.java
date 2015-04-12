@@ -52,7 +52,8 @@ public class AlarmManagerActivity extends Activity {
 			Intent dia = new Intent(getApplicationContext(), diadash.class);
 			dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(dia);
-			setContentView(R.layout.diahome);
+			finish();
+			//setContentView(R.layout.diahome);
 		}
 
 		else if (repeat == 0) {
@@ -64,7 +65,8 @@ public class AlarmManagerActivity extends Activity {
 			Intent dia = new Intent(getApplicationContext(), diadash.class);
 			dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(dia);
-			setContentView(R.layout.diahome);
+			finish();
+			//setContentView(R.layout.diahome);
 		}
 		
 	}
