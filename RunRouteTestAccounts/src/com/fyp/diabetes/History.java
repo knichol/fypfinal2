@@ -91,7 +91,6 @@ public class History extends Activity {
 
 	public class UserItemAdapter extends ArrayAdapter<UserRecord> {
 		private ArrayList<UserRecord> users;
-
 		public UserItemAdapter(Context context, int textViewResourceId, ArrayList<UserRecord> users) {
 			super(context, textViewResourceId, users);
 			this.users = users;
@@ -138,13 +137,7 @@ public class History extends Activity {
 	}
 
 	public class UserRecord {
-
-		public String updated;
-		public String weight;
-		public String glucose;
-		public String a1c;
-		public String bp;
-
+		public String updated, weight, glucose, a1c, bp;
 		public UserRecord(String u, String w, String g, String a, String b) {
 			this.updated = u;
 			this.weight = w;

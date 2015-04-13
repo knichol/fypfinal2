@@ -233,7 +233,7 @@ public class setmet extends Activity {
 
 					showMessage("Success", "Record added");
 					clearText();
-
+					
 					if(nullMets != 1) {
 						// Weight checks and warnings
 						if(Float.parseFloat(list.get(0).toString()) == chkWeight)

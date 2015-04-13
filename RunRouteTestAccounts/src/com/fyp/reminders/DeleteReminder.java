@@ -88,6 +88,8 @@ public class DeleteReminder extends Activity{
 				Log.d("Error", "Invalid Rollno "+ String.valueOf(rID));
 			}
 
+			db.close();
+			
 			Intent i = new Intent(getApplicationContext(), diadash.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(i);

@@ -1,8 +1,3 @@
-/**
- * Author: Ravi Tamada
- * URL: www.androidhive.info
- * twitter: http://twitter.com/ravitamada
- * */
 package com.fyp.library;
 
 import java.io.BufferedReader;
@@ -32,7 +27,6 @@ public class JSONParser {
 
 	// constructor
 	public JSONParser() {
-
 	}
 
 	public JSONObject getJSONFromUrl(String url, List<NameValuePair> params) {
@@ -67,7 +61,7 @@ public class JSONParser {
 			}
 			is.close();
 			json = sb.toString();
-			Log.e("JSON s", json);
+			Log.e("JSON Parser", json);
 		} catch (Exception e) {
 			Log.e("Buffer Error", "Error converting result " + e.toString());
 		}

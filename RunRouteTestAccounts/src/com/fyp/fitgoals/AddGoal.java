@@ -144,7 +144,7 @@ public class AddGoal extends Activity {
 				db.execSQL("INSERT INTO user_goals (user_id, goal_desc, type, value, complete_by, completed, gID, created_on) " +
 						"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+goalDesc.getText()+
 						"','"+type+"','"+goalValue.getText()+"','"+date+"','"+0+"','"+gid+"','"+dateFormat.format(now).toString()+"');");
-
+				
 				// Returning to Goal list
 				Intent i = new Intent(getApplicationContext(), Goal.class);
 				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

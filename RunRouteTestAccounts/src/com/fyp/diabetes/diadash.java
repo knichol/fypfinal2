@@ -62,30 +62,13 @@ public class diadash extends Activity {
 			}
 		});
 
-		// Metrics History Button - SOON TO BE DEPRECATED
+		// Metrics History Button
 		btnHist.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				Intent dia = new Intent(getApplicationContext(), History.class);
 				dia.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(dia);
-				
-				//				Cursor c = db.rawQuery("SELECT * FROM user_metrics WHERE user_id = " +
-//						"'"+userFunction.getUID(getApplicationContext())+"'", null);
-//				if(c.getCount()==0) {
-//					showMessage("Error", "No records found");
-//					return;
-//				}
-//				StringBuffer buffer = new StringBuffer();
-//				while(c.moveToNext()) {
-//					buffer.append("Updated on: "+c.getString(10)+"\n");
-//					buffer.append("Weight: "+c.getString(2)+"\n");
-//					buffer.append("Height: "+c.getString(3)+"\n");
-//					buffer.append("Glucose: "+c.getString(4)+"\n");
-//					buffer.append("HbA1c: "+c.getString(5)+"\n");
-//					buffer.append("BP(sys/dia): "+c.getString(6)+"/"+c.getString(7)+"\n\n");				
-//				}
-//				showMessage("All Entries", buffer.toString());
 			}
 		});
 
@@ -110,7 +93,8 @@ public class diadash extends Activity {
 		});
 
 	}
-	
+
+	// Forcing back to bring to main dash - fixes reminder bug
 	@Override
 	public void onBackPressed() {
 		Intent dia = new Intent(getApplicationContext(), DashboardActivity.class);

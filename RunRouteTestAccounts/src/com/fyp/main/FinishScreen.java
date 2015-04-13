@@ -126,8 +126,7 @@ public class FinishScreen extends Activity {
 				db.execSQL("INSERT INTO data (user_id, distance, time, steps, type, created_on) " +
 						"VALUES('"+userFunction.getUID(getApplicationContext())+"','"
 						+fdist+"','"+ftime+"','"+fsteps+"','"+type.toString()+"','"+dateFormat.format(date).toString()+"');");
-				db.close();
-
+				
 				Intent i = new Intent(getApplicationContext(), fitdash.class);
 				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(i);

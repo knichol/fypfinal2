@@ -151,7 +151,7 @@ public class AddReminder extends Activity {
 		else
 			cal.set(Calendar.HOUR, timePicker.getCurrentHour());
 
-		Log.d("Cal in ms", String.valueOf(cal.getTimeInMillis()));
+		//Log.d("Cal in ms", String.valueOf(cal.getTimeInMillis()));
 
 		Date now = new Date();
 		long dateMS = cal.getTimeInMillis() - now.getTime();
@@ -167,11 +167,11 @@ public class AddReminder extends Activity {
 		db.execSQL("INSERT INTO user_reminder (user_id, message, time, date, repeat, ms_until, remindID, created_on) " +
 				"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+remindMsg.getText()+
 				"','"+time+"','"+date+"','"+"No"+"','"+dateMS+"','"+remindID+"','"+dateFormat.format(now).toString()+"');");
-
-		Log.d("Mins", String.valueOf((dateMS/(1000*60))));
-		Log.d("Hours", String.valueOf((dateMS/(1000*60*60))));
-		Log.d("Days", String.valueOf((dateMS/(1000*60*60*24))));
-		Log.d("Millisecs", String.valueOf(dateMS));
+		
+//		Log.d("Mins", String.valueOf((dateMS/(1000*60))));
+//		Log.d("Hours", String.valueOf((dateMS/(1000*60*60))));
+//		Log.d("Days", String.valueOf((dateMS/(1000*60*60*24))));
+//		Log.d("Millisecs", String.valueOf(dateMS));
 
 		// Need to bundle dateMS to AlarmManagerActivity
 		Intent i = new Intent(getApplicationContext(), AlarmManagerActivity.class);
@@ -212,7 +212,7 @@ public class AddReminder extends Activity {
 		else
 			cal.set(Calendar.HOUR, timePicker.getCurrentHour());
 
-		Log.d("cal ms", String.valueOf(cal.getTimeInMillis()));
+		//Log.d("cal ms", String.valueOf(cal.getTimeInMillis()));
 
 		Date now = new Date();
 		long dateMS = cal.getTimeInMillis() - now.getTime();
@@ -228,12 +228,12 @@ public class AddReminder extends Activity {
 		db.execSQL("INSERT INTO user_reminder (user_id, message, time, date, repeat, ms_until, remindID, created_on) " +
 				"VALUES('"+userFunction.getUID(getApplicationContext())+"','"+remindMsg.getText()+
 				"','"+time+"','"+date+"','"+"Yes"+"','"+dateMS+"','"+remindID+"','"+dateFormat.format(now).toString()+"');");
-
-		Log.d("Mins", String.valueOf((dateMS/(1000*60))));
-		Log.d("Hours", String.valueOf((dateMS/(1000*60*60))));
-		Log.d("Days", String.valueOf((dateMS/(1000*60*60*24))));
-		Log.d("Millisecs", String.valueOf(dateMS));
-		Log.d("Rep", String.valueOf(rep));
+		
+//		Log.d("Mins", String.valueOf((dateMS/(1000*60))));
+//		Log.d("Hours", String.valueOf((dateMS/(1000*60*60))));
+//		Log.d("Days", String.valueOf((dateMS/(1000*60*60*24))));
+//		Log.d("Millisecs", String.valueOf(dateMS));
+//		Log.d("Rep", String.valueOf(rep));
 
 		//rep = 5000;
 		// Need to bundle dateMS to AlarmManagerActivity

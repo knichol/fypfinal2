@@ -76,33 +76,6 @@ public class AlarmManagerActivity extends Activity {
 		super.onStart();
 	}
 
-	//	public void startRepeatingTimer(View view) {
-	//		Context context = this.getApplicationContext();
-	//		if(alarm != null) {
-	//			alarm.SetAlarm(context);
-	//		} else {
-	//			Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
-	//		}
-	//	}
-	//
-	//	public void cancelRepeatingTimer(View view) {
-	//		Context context = this.getApplicationContext();
-	//		if(alarm != null) {
-	//			alarm.CancelAlarm(context);
-	//		} else {
-	//			Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
-	//		}
-	//	}
-	//
-	//	public void onetimeTimer(View view) {
-	//		Context context = this.getApplicationContext();
-	//		if(alarm != null) {
-	//			alarm.setOnetimeTimer(context);
-	//		} else {
-	//			Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
-	//		}
-	//	}
-
 	// Currently only using this, possibly not even being used
 	public void remindTimer(View view) {
 		Context context = this.getApplicationContext();
